@@ -1,0 +1,28 @@
+//gfg question on recursion
+#include<iostream>
+using namespace std;
+//COUNT DERANGEMENTS
+int solve(int n)
+
+{
+    //base case 
+    if(n==1)
+    {
+        return 0; //zero combination derangements
+    }
+   if(n==2)
+    {
+      return 1; //2 ki 1 hee derangements ho skti hai
+    }
+    //recursion
+    //(n-1) sirf 1 ke liye hai woh common tha dono m toh common nikalke woh bahar aaya hai isliye n-1 multiplied hai dono cases m 
+    //jisme i lenge toh n-2 hojayega aur jisme i nhi lenge toh n-1 rahega
+    int ans=(n-1)*(solve(n-1)+solve(n-2));
+    return ans;
+}
+int main(){
+  int n;
+  cin>>n;
+  cout<<solve(n)<<endl;
+return 0;
+}
