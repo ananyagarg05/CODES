@@ -1,0 +1,54 @@
+//Given two strings word1 and word2, return the minimum number of operations required to convert word1 to word2.
+//You have the following three operations permitted on a word:
+//Insert a character
+//Delete a character
+//Replace a character
+//isme pehle memory limit exceeded aa rhi thi toh humne fir by reference paas krdiye toh sahi hogya woh error 
+//code starts here
+class Solution {
+public:
+int solve(string& word1,string& word2,int i,int j)
+{
+    //base case
+    if(i>=word1.length())
+    {
+        //word1 wali string end hogyi
+        //yani word1 ki length maybe word 2 se choti ho
+        return word2.length()-j;
+    }
+     if(j>=word2.length())
+    {
+        //word2 wali string end hogyi
+        //yani word1 ki length maybe word1 se choti ho
+        return word1.length()-i;
+    }
+    int ans=0;
+    if(word1[i]==word2[j])
+    { 
+        //match
+        ans=0+solve(word1,word2,i+1,j+1);//aaage badh jao ab fir 
+    }
+    else
+    {
+        //not match 
+        //operation perform karo
+        //insert
+        //ek word m insert kr rhe hai toh ek index wahi rhega aur doosra aage badh jayega 
+        int option1=1+solve(word1,word2,i,j+1); //1 plus krenge kyunki 1 operation perform hua hai
+        //remove
+        //remove kr rhe hai toh joh remove hua hai toh uska index +1 hoga 
+        int option2=1+solve(word1,word2,i+1,j);
+        //replace
+        //replace m replace krdia aur match hogye then dono saaath m aage badhenge aur hogi iterations isliye dono m +!
+        int option3=1+solve(word1,word2,i+1,j+1);   
+         ans=min(option1,min(option2,option3));
+    }
+         return ans;
+}
+    int minDistance(string word1, string word2) {
+        int i=0;//word1 ka index 
+        int j=0;
+        int ans=solve(word1,word2,i,j);
+        return ans;
+    }
+};
