@@ -1,0 +1,30 @@
+//Painting the Fence
+//Given a fence with n posts and k colors, find out the number of ways of painting the fence so that not more than two consecutive posts have the same colors. Since the answer can be large return it modulo 109 + 7.
+//code starts
+//tle dega recursion se , isiliye abhi yahi code hai for optimization ya fir tle htaane ke liye DP lgegi
+int paintingWays(int n,int k)
+{
+   //base case
+   if(n==1)
+   {
+    return k; //r,g,b same value as k
+   }
+   if(n==2)
+  {
+    return k+k*(k-1); //same+different ka plus hoga na (same ka k hai aur different ka k(k-1))
+  }
+  //recursive call
+  int ans= (k-1)*(paintingWays(n-1,k)+paintingWays(n-2,k));
+  return ans;
+}
+int main(){
+ /*  int n;
+  cin>>n;
+  cout<<solve(n)<<endl; */
+  //painting the fence problem
+  int n=3;
+  int k=3;
+  int ans=paintingWays(n,k);
+  cout<<ans<<endl;
+return 0;
+}
