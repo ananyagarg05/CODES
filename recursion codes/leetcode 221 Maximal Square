@@ -1,0 +1,42 @@
+//leetcode 221 Maximal square
+class Solution {
+public:
+//imp ques haiiii interview/OA ke respect m good ques hai jiske high marks milte hai
+   int solve(vector<vector<char>>& matrix,int i,int j,int row,int col,int& maxi)
+   {
+    //base case 
+    //out of bound jab ho jayega
+    if(i>=row || j>=col)
+    {
+        return 0; 
+    }
+    //explore all 3 directions
+    int right=solve(matrix,i,j+1,row,col,maxi);//colum badhegi
+    int diagonal=solve(matrix,i+1,j+1,row,col,maxi);//dono badhenge 
+    int down=solve(matrix,i+1,j,row,col,maxi);//row m badhenge
+    //check can we build square from current position
+    if(matrix[i][j]=='1')
+    {     //1+ isiliye kr rhe hai kyunki jispr khada hai woh bhi toh include krenge
+        int ans=1+min(right,min(diagonal,down));
+        //ye important hai 
+        //humein max number chahiye square ki side ka 
+        maxi=max(maxi,ans);
+        return ans;
+    }
+    else
+    {
+         //mtlb hum 0 pr khade hai 
+         return 0; //square bna hee nhi payega 0 toh isiliye 
+    }
+   }
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int i=0;
+        int j=0;
+        int row=matrix.size();
+        int col=matrix[0].size();
+        int maxi=0;
+        int ans=solve(matrix,i,j,row,col,maxi);
+        //area of square return krenge as asked in the ques
+        return maxi*maxi;
+    }
+};
