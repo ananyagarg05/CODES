@@ -1,0 +1,166 @@
+//Rat in a Maze Problem - I
+//code starts here
+//{ Driver Code Starts
+// Initial template for C++
+#include <bits/stdc++.h>
+using namespace std;
+
+
+// } Driver Code Ends
+// User function template for C++
+//tc hai exponential //ek call se 4 movements hai 
+
+
+class Solution{
+    public:
+
+  
+    bool isSafe(int newx,int newy,vector<vector<int>> &m,vector<vector<bool>> 
+     visited,int n)
+     {
+          //out of bound
+          if(newx<0 || newy<0 || newx>=n || newy>=n)
+          {
+               return false;
+          }
+          //already visited hai toh ab woh case
+          if(visited[newx][newy]==true)
+          {
+               return false;
+          }
+          if(m[newx][newy]==0)
+          {
+              //blocked hai bhai 
+              return false;
+          }
+          return true; //valid case
+     }
+
+
+  
+     void solve(vector<vector<int>> &m,vector<vector<bool>> 
+     &visited,int n,vector<string>& ans,int srcx,int srcy,int destx,int desty,string output)
+  
+     { //base case
+         if(srcx==destx && srcy==desty)
+         {   //rat reched destination
+         //store output string in ans
+             ans.push_back(output);
+             return;
+         }
+         //1 case hum solve krenge -4 movements hai 
+         //movements 
+         //up case m  i,j -> i-1,j
+         int newx=srcx-1;
+         int newy=srcy;
+         if(isSafe(newx,newy,m,visited,n))
+         {
+             visited[newx][newy]=true; //true mark krdia pohchgya rat
+             //ab recursion krega
+             //string m append krna hai na toh +U krke karo
+             //ya fir push back krdo output m
+             //pr fir pop back bhi krna pdega revert ke liye 
+             solve(m,visited,n,ans,newx,newy,destx,desty,output+'U');
+             //waapas aaungi ,toh visited toh revert krna padega
+             //backtracking
+             visited[newx][newy]=false;
+         }
+         
+        // down case i+1,j
+         newx=srcx+1;
+          newy=srcy;
+         if(isSafe(newx,newy,m,visited,n))
+         {
+             visited[newx][newy]=true;
+             solve(m,visited,n,ans,newx,newy,destx,desty,output+'D');
+             //waapas aaungi ,toh visited toh revert krna padega
+             //backtracking
+             visited[newx][newy]=false;
+         }
+        //left i,j-1
+         newx=srcx;
+         newy=srcy-1;
+         if(isSafe(newx,newy,m,visited,n))
+         {
+             visited[newx][newy]=true;
+             solve(m,visited,n,ans,newx,newy,destx,desty,output+'L');
+             //waapas aaungi ,toh visited toh revert krna padega
+             //backtracking
+             visited[newx][newy]=false;
+         }
+        //right i,j+1
+          //left i,j-1
+         newx=srcx;
+         newy=srcy+1;
+         if(isSafe(newx,newy,m,visited,n))
+         {
+             visited[newx][newy]=true;
+             solve(m,visited,n,ans,newx,newy,destx,desty,output+'R');
+             //waapas aaungi ,toh visited toh revert krna padega
+             //backtracking
+             visited[newx][newy]=false;
+         }
+     }
+
+  
+  
+    vector<string> findPath(vector<vector<int>> &m, int n) {
+        // Your code goes here
+        //ans vector of string m return krna hai isiliye
+        vector<string> ans;
+        //2 d vector of visiting , n rows , false se ini. krdia joh ki boolean ko store krta hai
+        vector<vector<bool>> visited(n,vector<bool>(n,0)); //0 is false initialized
+        //rat ke row and col index ke liye neeche wacle 2 variables bnaye hai
+        int srcx=0; //row ka index
+        int srcy=0;//col
+        //main yaha galti krti hu ,important hai 
+        //rat yaha present hai already
+        //0,0 pr hai isiliye true mark karo hee karo
+        visited[0][0]=true;
+        //ques ne hee de rhkhi hai destination
+        int destx=n-1;
+        int desty=n-1;
+        //answer create krne ke liye string
+        string output="";
+        //important case
+        if(m[0][0]==0)
+        {     
+            //rat ki starting hee blocked hai toh
+            return ans;//empty return krdo answer ko khaali
+        }
+        //function call
+        solve(m,visited,n,ans,srcx,srcy,destx,desty,output);
+        return ans;
+    }
+    
+};
+
+    
+
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<vector<int>> m(n, vector<int> (n,0));
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                cin >> m[i][j];
+            }
+        }
+        Solution obj;
+        vector<string> result = obj.findPath(m, n);
+        sort(result.begin(), result.end());
+        if (result.size() == 0)
+            cout << -1;
+        else
+            for (int i = 0; i < result.size(); i++) cout << result[i] << " ";
+        cout << endl;
+    }
+    return 0;
+}
+// } Driver Code Ends
