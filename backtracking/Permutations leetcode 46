@@ -1,0 +1,28 @@
+//46. Permutations
+class Solution {
+public:
+void solve(vector<int>& nums,int i,vector<vector<int>>& ans)
+{
+    //base case
+    if(i>=nums.size())
+    {
+        ans.push_back(nums);
+        return;
+    }
+    //1 case main,baaki R
+    //p.t ith place pr sabko chance dena hai
+     for(int j=i;j<nums.size();j++)
+     {   // j ko i se isliye start kr rhe hai kyunki redundant values na aaye 
+        swap(nums[i],nums[j]);
+        solve(nums,i+1,ans);
+        //backtrack
+        swap(nums[i],nums[j]);
+     }
+}
+ vector<vector<int>> permute(vector<int>& nums) {
+       vector<vector<int>> ans;
+       int i=0;
+       solve(nums,i,ans);
+       return ans; 
+    }
+};
