@@ -1,0 +1,91 @@
+51. N-Queens Leetcode
+//code starts here
+class Solution {
+//important question     
+public:
+//map create kr rhe hai for mapping ki koi hai ya nhi aas paas and do check 
+unordered_map<int,bool> rowCheck;
+unordered_map<int,bool> lowerDCheck;
+unordered_map<int,bool> upperDCheck;
+  void storeSolution(vector<vector<string>> &ans,vector<vector<char>> &board,int n)
+  {   vector<string> tempAns;
+  for(int i=0;i<n;i++)
+  {
+    string output="";
+    for(int j=0;j<n;j++)
+    { 
+        output.push_back(board[i][j]);
+    }
+    //string is ready
+    tempAns.push_back(output);
+  }
+  //vector of string is ready
+  ans.push_back(tempAns);
+  }
+  bool isSafe(int row,int col,vector<vector<char>>& board)
+  {   //brute force -> traverse board -> T.C -> n^2
+  //can something be done in linear tc?
+  //yes ->thats why using bool
+  //check for row
+  if(rowCheck[row]==true) //already hai koi fir toh false
+  {
+    //not safe 
+    return false;
+  }
+  //check for upper diagonal
+  if(upperDCheck[row-col]==true)
+  {
+    //not safe
+    return false;
+  }
+   //check for lower diagonal
+  if(lowerDCheck[row+col]==true)
+  {
+    //not safe
+    return false;
+  }
+  //else it is safe to place
+  return true;
+
+  }
+  void solve(int n,vector<vector<char>>& board,vector<vector<string>> &ans,int col)
+  {   //base case
+     if(col>=n)
+     {    //out of bound gya
+         //all queens are placed
+     //store board arrangement in ans
+        storeSolution(ans,board,n);
+        return;
+     }
+     //1 case hum solve karenge and baaki recursion
+     //mere paas col ka index hai ,uss column mein konsi row m queen ko place krna hai 
+     //vo yaha decide krre hai 
+     for(int row=0;row<n;row++)
+     {   //hr row pr Queen ko place krke dekhungi
+        if(isSafe(row,col,board))
+        {
+            board[row][col]='Q';
+            rowCheck[row]=true;
+            lowerDCheck[row+col]=true;
+            upperDCheck[row-col]=true;
+            //baaki kon sambhalega
+            //recursion
+            solve(n,board,ans,col+1);
+            //backtrack karo bhai -> ye main bhul jaati huu 
+            board[row][col]='.';
+             rowCheck[row]=false;
+            lowerDCheck[row+col]=false;
+            upperDCheck[row-col]=false;
+        }
+     }
+  }
+    vector<vector<string>> solveNQueens(int n) {
+         vector<vector<string>> ans;
+         //board
+           vector<vector<char>> board(n,vector<char>(n,'.'));
+           //start placing Queen with 0th column
+           int col=0;
+           solve(n,board,ans,col);
+           return ans;
+    }
+};
