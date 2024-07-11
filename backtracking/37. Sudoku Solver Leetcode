@@ -1,0 +1,90 @@
+37. Sudoku Solver
+//code starts here
+class Solution {
+public:
+bool isSafe(char digit,int i ,int j,vector<vector<char>>& board)
+{    
+  //3 rule
+  //row check
+  int n=board.size();
+  for(int k=0;k<n;k++)
+  {
+    if(board[i][k]==digit)
+    {  //same digit pehle se same row mein exist krta hai
+        return false;
+    }
+  }
+  //col check
+    for(int k=0;k<n;k++)
+  {
+    if(board[k][j]==digit)
+    {  //same digit pehle se same column mein exist krta hai
+        return false;
+    }
+  }
+  //3X3 sub box check
+    for(int k=0;k<n;k++)
+    {
+        if(board[3*(i/3)+k/3][3*(j/3)+k%3] ==digit){
+            //same 3*3 k box mein same digit exist krta hai 
+            return false;
+        }
+    }
+    return true;
+}
+//bool isiliye ki mujhe kaise pta lagega solve ho rha hai func T/F
+  bool solve(vector<vector<char>>& board)
+  {
+     //entire logic
+     //base case? //explicitly se hee code likha hai,end hogi hee loop jab fill hogaa
+    //ek case hum baaki R
+     //sudoko traverse and find the empty cell
+     //empty cell is . 
+     for(int i=0;i<board.size();i++)
+     {  //traversing the board 
+        for (int j=0;j<board[0].size();j++)
+        {//main i,j wali cell pr aagya
+            //pr pta kaise lagega data fill kru ya nhi
+            //sirf empty pr fill krenge
+            if(board[i][j]=='.')
+            {//fill this cell,xoz its empty
+                //empty cell pr mujhe 1 to 9 tk digit hit and trial krne hai
+                for(char digit='1';digit<='9';digit++)
+                {
+                    //konsa digit rakh skta hu ya nhi? kaise pta lagega
+                    //mujhe bs check krna hai , k konsa digit rakhna safe h
+                    //safe func 
+                    if(isSafe(digit,i,j,board)==true)
+                    {//agr safe hai rakhna toh
+                        board[i][j]=digit;
+                        //baaki ? -> recursion
+                        bool aageSolvehopaya=solve(board);
+                      if(aageSolvehopaya==true)
+                      {  //poora board solve hogya
+                      return true; }
+                      else{
+                        //ye woh wala case hai jaha humne ek digit place krdi hai 
+                        //pr R se glat answer aagya
+             //aage board solve nhi ho paaya
+          //shyd maine galat digit rakh dia
+          //backtrack karo 
+              board[i][j]='.';
+                      }
+                    }
+                }
+     //agr aap yaha pohch gye
+     //iska matlb ye hai ki 1 se 9 tk koi bhi digit yaha pr fit nhi ho rha 
+     //kyunki agr hua hota toh wahi se return true kr jaate na
+   //piche koi kahin galti kari hai
+                return false;
+            }
+        }
+     }
+     //yaha aagye mtlb board completely filled ho chuka hai 
+     //ans aa chuka hai
+     return true;
+  }
+    void solveSudoku(vector<vector<char>>& board) {
+         solve(board);
+    }
+};
