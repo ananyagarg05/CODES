@@ -1,0 +1,22 @@
+1981. Minimize the Difference Between Target and Chosen Elements
+class Solution {
+public:
+int solve(vector<vector<int>>& mat, int sum,int row,int& target)
+{   //base case
+if(row==mat.size()) {
+    return abs(target-sum); //out of bound hogye toh diff return karo
+}
+int ans=INT_MAX;
+for(int col=0;col<mat[row].size();col++)
+{    int recAns=solve(mat,sum+mat[row][col],row+1,target); //sab include honge isme ,iska min chahiye
+     ans=min(ans,recAns);
+}
+return ans;
+    
+}
+    int minimizeTheDifference(vector<vector<int>>& mat, int target) {
+       int sum=0;
+       int row=0;
+       return solve(mat,sum,row,target);
+    }
+};
