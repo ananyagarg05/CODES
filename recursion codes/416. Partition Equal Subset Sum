@@ -1,0 +1,25 @@
+ 416. Partition Equal Subset Sum
+//giving tle
+class Solution {
+public:
+//tc exponential ,2^n ,2 recursive call in/ex
+//using in/ex technique
+//thoda thoda coin change types 
+   bool solve(vector<int>& nums,int target,int i)
+   {
+    if(target<0 || i==nums.size()) return false;
+    if(target==0) return true; //bngya subset isliye zero hogya
+    //include/exclude
+    //inc
+    bool inc=solve(nums,target-nums[i] , i+1);//i have included this particular cell
+      bool exc=solve(nums,target , i+1); //excluded
+      return inc||exc; //jisme m apna subset bnjaye koi ek bhi 
+   }
+    bool canPartition(vector<int>& nums) {
+        //accumulate m 3 operator jaate hai
+        int sum=accumulate(nums.begin(),nums.end(),0); //accumulate func to sum (stl)
+        if(sum%2!=0) {return false; } //oddsum
+        int target=sum>>1; // /2 krdia
+        return solve(nums,target,0);
+    }
+};
