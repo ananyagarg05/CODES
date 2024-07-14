@@ -1,0 +1,24 @@
+55. Jump Game
+class Solution {
+public:
+//tle
+//important ques asked many times in OA 
+//google,microsoft,amazon,ebay,meta and many others
+ bool solve(vector<int>& nums,int i)
+ {
+    //base case
+    if(i==nums.size()-1) //reached 
+    return true;
+    if(i>=nums.size()) return false; //aage chla gya
+    if(nums[i]==0) return false;//aage nhi badh skte ,stuck at that index
+    bool reAns=false;
+    for(int jump=1;jump<=nums[i];jump++ )//jump =1 isliye min 1 jump start hogi na
+    {
+         reAns=reAns||solve(nums,i+jump);
+    } 
+    return reAns;
+ }
+    bool canJump(vector<int>& nums) {
+        return solve(nums,0);
+    }
+};
