@@ -1,0 +1,24 @@
+287.Find the Duplicate Number
+//code starts here
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+    //using two pointers approach 
+    //and checking the adjacent elements in the array
+        int l=0;
+        int h=1;
+        //sorting the array to be more precise and to find the duplicate fastly
+        sort(nums.begin(),nums.end());
+        while(h<nums.size()){
+        if(nums[l]!=nums[h])
+        {   //not equal so move ahead
+            l++;
+            h++;
+        }
+        else 
+           {  //they are equal so return the element
+           return nums[l];} }
+           //else return -1 if no duplicates found
+    return -1;
+    }
+};
