@@ -1,0 +1,209 @@
+//this code includes insertion at head,tail,any position,tail,searching ,deletion
+#include<iostream>
+using namespace std;
+class Node
+{  public:
+   int data;
+   Node* next;
+   //constructor 
+   Node( int value)
+   {
+   data=value;
+   next=NULL;
+   }
+};
+   //we can use void func also kyunki sab byref hee jaa rhe h
+//ya fir node* krke bnalo ek hee baat hai pointer return ho rha fir 
+
+Node* insertAtHead(int value,Node* &head,Node* &tail)
+{
+    //ll is empty-> head and tail both null ko point krenge
+    //it means we are creating first node of ll
+    if(head==NULL && tail==NULL)
+    {
+        //step 1: create a new node
+        Node* newNode= new Node(value);
+        //step 2
+        head=newNode;
+        //
+        tail= newNode;
+    }
+    else{
+         //ll is not empty
+         //pehle se node present hai
+         //insert at head 
+         //step 1 create node
+         Node* newNode= new Node(value);
+         //step 2 connect this new node to head node
+          newNode->next=head;
+          //step 3 : head update kro
+          head=newNode;
+    }
+    return head;
+}
+Node* insertAtTail(int value, Node* &head,Node* &tail)
+{    if(head==NULL && tail==NULL)
+{
+    //ll is empty
+    //iska mtlb abhi hum 1swt node create krne jaa rhe hai
+        //step 1: create a new node
+        Node* newNode= new Node(value);
+        //step 2
+        head=newNode;
+        //
+        tail= newNode;
+}
+else
+{  //ll is not empty
+//step 1 create a new node
+    Node* newNode=new Node(value);
+    //2.connect karo 
+    tail->next=newNode;
+    //3.tail ko update karo
+    tail=newNode;
+}
+return tail;
+}
+
+void print(Node* head)
+{
+    Node* temp=head;
+    //jab tak mera temp
+    // NULL ke equal nhi hai tab tak loop use karo
+    while(temp!=NULL)
+    {
+        cout<<temp->data<<"->";
+        temp=temp->next;
+    }
+ cout<<"NULL"<<endl;
+}
+     //length func
+    int getLength(Node* &head)
+    {
+      Node*  temp=head;
+      int count=0;
+      while(temp!=NULL)
+      {
+        count++;
+        temp=temp->next;
+      }
+      return count;
+    }
+void insertAtPosition(int position,int value, Node* &head,Node* &tail)
+{
+    //assuming that only valid positions are given in the input
+    int length=getLength(head);
+    if(position==1)
+    {
+        //insert at head hogya ye toh
+        head=insertAtHead(value,head,tail);
+    }
+    else if(position=length+1) //aakhiri pr aagye
+    {  //tail pr aagye bhai end m
+        insertAtTail(value, head,tail);
+    }
+    else{
+        //insert in between
+        Node* temp=head;
+        for(int i=0;i<position-2;i++)
+        {
+            temp=temp->next;
+        }
+        //create 
+        Node* newNode=new Node(value);
+        newNode->next=temp->next;
+        temp->next=newNode;
+    }
+}
+bool SearchingInll(int target,Node* head)
+{    //temporary variable to traverse the ll
+     Node* temp=head;
+    while(temp!=NULL)
+{
+    if(temp->data==target)
+{
+    return true;
+}
+    temp=temp->next;
+}
+//poori ll traverse ho chuki hai 
+//pr target nhi mila kahi bhi toh
+return false;
+}
+int getLength(Node* head)
+{
+    int len=0;
+    Node* temp=head;
+    while(temp!=NULL)
+    {
+        temp=temp->next;
+    len++;
+    }
+    return len;
+}
+//deletion
+void deleteNodeInLL(int position, Node* &head,Node* &tail)
+{
+     //ll is empty ,then we cannor delete
+     if(head==NULL && tail==NULL)
+     {
+        cout<<"no node to delete"<<endl;
+        return;
+     }
+     //single node is there in ll ,only 1
+     //head and tail are both same 
+     //and dono ye null pr aajayenge after deletion
+     if(head==tail)
+     {
+        Node* temp=head; //point krwa dia 
+        head=NULL;//head gya
+        tail=NULL;//tail bhi gya
+       delete temp;//ab ye temp bacha krdo delete (heap memory)
+       return;
+     }
+     else{
+         //multiple nodes inside ll
+         //2 case bante hai 
+         //first case pos 1 = delete krna chahte hai
+         if(position==1)
+         {
+            Node* temp=head;
+            head=temp->next;
+            temp->next=NULL;
+            delete temp;
+         }
+         else{
+             //2nd case
+             //any other node except the first one 
+             Node* prev=head;
+             for(int i=0;i<position-2;i++)
+             {
+                prev=prev->next;
+             }
+             Node* curr=prev->next;
+             Node* forward=curr->next;
+             prev->next=forward;
+             curr->next=NULL;
+             delete curr;
+         }
+     }
+}
+
+int main(){
+    Node* head=NULL;
+    Node* tail=NULL;
+    ///ll is empty
+    insertAtHead(20,head,tail);
+   print(head);
+    //10-> null
+     insertAtHead(40,head,tail);
+     print(head);
+      //40->20->null
+      insertAtHead(50,head,tail);
+     print(head);
+         //50->40->20->null
+     insertAtPosition(1,42,head,tail);
+     print(head);
+         //42->101->102->103->NULL
+           return 0;
+}
