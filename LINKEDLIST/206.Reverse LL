@@ -1,0 +1,48 @@
+206.Reverse LL
+class Solution {
+public:
+ ListNode* reverseList(ListNode* &prev, ListNode* &curr)
+ {
+    //base case
+    if(curr==NULL)
+    {
+        //ll reverse ho chuki hai
+        //reversed ll k starting node pr prev wala pointer hai
+        return prev;
+    }
+    //1 case hum solve krenge 
+     ListNode* forward=curr->next;
+     //curr node ko piche ki disha m point krwaya
+     curr->next=prev;
+     //pointers ko ek step aage badhwaya 
+     //and recursion ko pakda dia aage 
+     //solve krega
+     prev=curr;
+     curr=forward;
+     //baaki R smbhalega
+   return  reverseList(prev,curr);
+ }
+    ListNode* reverseList(ListNode* head) {
+     ListNode* prev=NULL;
+      ListNode* curr=head;
+       ListNode* newHead=reverseList(prev,curr);
+       return newHead;
+    }
+};
+ //can be done in loop also
+ /* 
+ //iterative solution
+  ListNode* reverselist( ListNode*  head){
+ ListNode* prev=NULL;
+  ListNode* curr=head;
+  while(curr!=NULL)
+  {
+     ListNode*  forward=curr->next;
+     //forward pointer set hogya aage ke list lost nhi hoga
+     curr->next=prev;
+     prev=curr;
+     curr=forward;
+  }
+  //new head of ll hoga ->prev pointer
+  return prev;}
+ */
