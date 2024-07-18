@@ -1,0 +1,25 @@
+876.Middle of the LL
+//tortoise approach
+//fast hai rabbit
+//slow hai kachua ,tortoise
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+            ListNode* slow =head;
+                ListNode* fast=head;
+                while(fast!=NULL)
+                {
+                    //fasts +1
+                    fast=fast->next;
+                    //null chrck kro and fast ko bdhao
+                    if(fast!=NULL)
+                    {
+            fast=fast->next;
+            //fast ke 2 step done compleete
+            //slow ko bdhao
+            slow=slow->next;
+                    }
+                }
+                return slow; //middle node
+    }
+};
