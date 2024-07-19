@@ -1,0 +1,60 @@
+25. Reverse Nodes in k-Group
+class Solution {
+public:
+int getLength(ListNode* head)
+{
+    int len=0;
+    ListNode* temp=head;
+    while(temp!=NULL)
+    {
+    len++;
+    temp=temp->next;
+    }
+    return len;
+}
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        //LL IS EMPTY
+        if(head==NULL)
+        {
+            return head;
+        }
+        if(head->next==NULL)
+        {
+            return head;
+        }
+        //atleast 2 nodes minimum
+        //ek case hum krenge baaki recursion smbhal lega
+        //ek case ke andr K length reverse krni hai
+         int position=0;
+          ListNode* prev=NULL;
+          ListNode* curr=head;
+        //check for length
+         int len=getLength(head);
+         if(len<k)
+         {
+            //toh reverse krne ki need hee nhi hai ,as per ques
+            return head;
+         }
+         while(position<k)
+         { 
+         ListNode* forward=curr->next;
+         curr->next=prev;
+         prev=curr;
+         curr=forward;
+         position++;
+         }
+         //baaki recursion smbhal lega
+         //starting point pr konsa node baitha hai
+         //curr
+         if(curr!=NULL)
+         {  //recursion 
+            ListNode* RecHead=reverseKGroup(curr,k);
+            //ll reverse hoke aayi hai 
+            //then
+            //attach krdo
+            head->next=RecHead;
+    }
+    //poori ll ka head tha starting se prev pr toh return prev
+    return prev;
+ }
+};
