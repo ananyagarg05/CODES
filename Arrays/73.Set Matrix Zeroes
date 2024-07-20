@@ -1,0 +1,40 @@
+73.Set Matrix Zeroes
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        //not optimal but working
+     // tc=O(M∗N);
+     //but space comp is high
+     //sc is O(n)+o(m)
+       int m=matrix.size();
+       int n=matrix[0].size();
+         vector<int>col(n,0);//sc
+        vector<int>row(m,0);//sc
+       //redefinition hogyi 
+       //kyunki upr vector create krke 
+       //value bhej di hai 0 already
+       //col[n]={0};
+       //row[m]={0};
+       for(int i=0;i<m;i++)
+       {
+        for(int j=0;j<n;j++)
+        {
+            if(matrix[i][j]==0)
+            {
+                row[i]=1;
+                col[j]=1;
+            }
+        }
+       }
+       for(int i=0;i<m;i++)
+       { for(int j=0;j<n;j++)
+         {
+            if(row[i]||col[j])
+            {
+                matrix[i][j]=0;
+            }
+         }
+
+       }
+    } 
+};
