@@ -1,0 +1,46 @@
+15. 3Sum
+'''cpp
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+ int n=nums.size();//size of the array
+ if(n<3) //edge cases 0,1,2 ,because we have to form triplets
+ {return {};} //returning empty 
+ //sorting to avoid the duplicates and iterating through it
+ sort(nums.begin(),nums.end());
+ //the final result array/vector
+ //set used to store , for unique elements
+ //meaning no two elements in a set are the same
+ set <vector<int>> result;
+ for(int i=0;i<n-2;i++)
+ //n-2 because i iterate krega so r se chota hona chahiye , to form triplets kyunki r=n-1 h (last se)
+ //iterating up to n - 2 ensures that l and r pointers are always within the valid range of the array to form a triplet.
+ {   //i=0, l=i+1 and r , these 3 pointers and comaparing it 
+    int l=i+1; // i se ek aage for comparison
+    int r=n-1;//end ele
+ while(l<r) 
+ {
+    int sum=nums[i]+nums[l]+nums[r];//summing 
+    if (sum==0) 
+    {     //triplet found 
+        result.insert({nums[i],nums[l],nums[r]});
+        l++;
+        r--;
+    }
+    else if(sum<0)
+    {  //-ve sum toh aage krdenge l ko
+        l++;
+    }
+    else //sum >0
+    //toh right side pr bigger number hoga toh possibility hai ki - krke 0 pr aajaye isliye yaha r--
+    r--;
+ }
+}
+//humne upr result ka set bnaya hai isiliye aise hee return hoga 
+//aur begin and end bhi dena pdega set ke liye
+// Convert the set to a vector before returning
+//thats why we have written vector....
+    return vector<vector<int>>(result.begin(), result.end());
+    }
+};
+'''
