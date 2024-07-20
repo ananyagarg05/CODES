@@ -1,0 +1,47 @@
+18. 4Sum
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+ int n=nums.size();//size of the array
+ if(n<4) 
+ {return {};} //returning empty 
+ //sorting to avoid the duplicates and iterating through it
+ sort(nums.begin(),nums.end());
+ //the final result array/vector
+ set <vector<int>> result;
+ for(int i=0;i<n-3;i++)
+{   //two nested loops to fix the first two numbers of the quadruplet (i and j)
+    for (int j=i+1;j<n-2;j++)
+{  // two pointers lplus and r  to find the other two numbers that sum up to the target.
+    //3rd no:
+    int lplus=j+1;
+    int r=n-1;//end ele,4th
+ while(lplus<r) 
+ { //static_cast<new_type>(expression)
+   //static_cast<long long>(nums[i]) casts nums[i] to long long to prevent overflow when performing the addition.
+//Similarly, nums[j], nums[lplus], and nums[r] are added to this value.
+//the use of static_cast ensures that all integer additions are performed using the long long type, 
+//which helps in preventing integer overflow. 
+//This is especially useful if the values in nums can be large or if the target value is large.
+    long long sum=static_cast<long long>(nums[i])+nums[j]+nums[lplus]+nums[r];//summing 
+    if (sum==target)
+    {     //quadrruplets found 
+        result.insert({nums[i],nums[j],nums[lplus],nums[r]});
+        lplus++;
+        r--;
+    }
+    else if(sum<target)
+    {  //-ve sum toh aage krdenge l ko
+        lplus++;
+    }
+    else //sum >t
+    //toh right side pr bigger number hoga toh possibility hai ki - krke 0 pr aajaye isliye yaha r--
+    r--;
+ }
+ }
+ }
+//humne upr result ka set bnaya hai isiliye aise hee return hoga 
+//aur begin and end bhi dena pdega set ke liye
+    return vector<vector<int>>(result.begin(), result.end());
+    }
+};
