@@ -1,0 +1,33 @@
+22. Generate Parentheses
+class Solution {
+public:
+//important ques
+//backtracking and strings
+  void solve(vector<string>&ans,string out,int open,int close,int n)
+  {
+    //base case
+    if(open+close==2*n)
+    {   //final answer milgya
+        ans.push_back(out);
+        return;
+    }
+    if(open<n)
+    {   //open bracket jayega (
+        solve(ans,out+ "(",open+1,close,n);
+    }
+    if(close<open)
+    {   //then close aayega
+         solve(ans,out+ ")",open,close+1,n);
+    }
+  }
+    vector<string> generateParenthesis(int n) {
+         vector<string> ans; //final strings
+         solve(ans,"",0,0,n);//out ki empty string "" not " "
+         //and open and close ki initial 0 values and n 
+         return ans;
+    }
+};
+//or in open<n
+//out.pushback('(')
+//out waisa hia
+//out.popback //backtrack done
