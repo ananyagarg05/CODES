@@ -1,0 +1,36 @@
+79. Word Search
+class Solution {
+public:
+//tc O(4(M∗N))
+bool solve(vector<vector<char>>& board, string word,int i,int j,int index,int m,int n)
+{   //base case
+if(index==word.size()) return true; //all chars matched, mil gya
+if(i<0||i>=m||j<0||j>=n||board[i][j]!=word[index]||board[i][j]=='%')
+   return false;
+   //i have reached here means ,current index word char,has matched
+   char temp=board[i][j];
+   board[i][j]='%';//visited mark krdia aise hee operator se aivi
+   bool found=solve(board,word,i+1,j,index+1,m,n) //down
+                || solve(board,word,i-1,j,index+1,m,n) //up
+                 ||solve(board,word,i,j+1,index+1,m,n)  //right
+                 ||solve(board,word,i,j-1,index+1,m,n); //left
+      //unvisited
+     board[i][j]=temp;
+     //milgya
+     return found;            
+}
+    bool exist(vector<vector<char>>& board, string word) {
+        //m*n size
+      int m=board.size(); //rows
+       int n=board[0].size();//cols
+        for(int i=0;i<m;i++) //row traverse
+        {
+            for(int j=0;j<n;j++) //col traverse
+          {  if(solve(board,word,i,j,0,m,n))
+            {
+                return true;
+            }
+                  }  }
+                  return false;
+    }
+};
