@@ -2,6 +2,65 @@
 class Solution {
 public:
     void setZeroes(vector<vector<int>>& matrix) {
+//optimal approach 
+        //tc is O(2*m*n)
+        //sc is O(1)
+        int col0=1;
+        int m=matrix.size();
+        int n=matrix[0].size();
+        for(int i=0;i<m;i++)
+        {
+            for(int j=0;j<n;j++)
+            {
+                if(matrix[i][j]==0)
+                {
+                    //mark the ith row
+                    matrix[i][0]=0;
+                    //mark the jth col
+                    if(j!=0)
+                     matrix[0][j]=0;
+                     else
+                     { //top most 
+                      col0=0;
+                     }
+                }
+            }
+        }
+        //excluding the topmost row and first col
+    for(int i=1;i<m;i++)
+        {
+            for(int j=1;j<n;j++)
+            { if(matrix[i][j]!=0)
+            {
+                //check for col and row that it is marked 0 or not 
+                if(matrix[0][j]==0 ||matrix[i][0]==0)
+                {
+                    //converting it into 0
+                    matrix[i][j]=0;
+                }
+            }
+            }}
+       //now marking the top most column the jth
+       //so starting will be from matrix[0][0] se first ele se traverse
+       if(matrix[0][0]==0)
+       {
+        //row ko zero bnado ,col traverse krke aage aage
+        for(int j=0;j<n;j++)
+        {
+            matrix[0][j]=0;
+        }
+       }   
+       //now col ko bnao 
+       //so for col we have to check if col0 is 0 or not
+       if(col0==0)
+       {
+        //col ko 0 krdo poori fir 
+        for(int i=0;i<m;i++)
+        {
+            matrix[i][0]=0;
+        }
+       } //doneee
+
         //not optimal but working
      // tc=O(M∗N);
      //but space comp is high
