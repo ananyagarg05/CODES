@@ -1,0 +1,25 @@
+121. Best Time to Buy and Sell Stock
+//code
+class Solution {
+public:
+  int maxProfit(vector<int>& prices)
+  { //tc O(n)
+  //sc O(1)
+    int n=prices.size();//size of the array
+    if(n==0) return 0;
+    int minPrice=prices[0];//initializing 
+    int maxProfit=0;
+    for(int i=0;i<n;i++)
+    {  //iterating through the whole array
+        if(prices[i]<minPrice)
+        {   //finding th minimum value
+            minPrice=prices[i];
+        }
+        else
+        {  //if not got then the difference will be the profit and updating it
+            maxProfit=max(maxProfit,prices[i]-minPrice);
+        }
+    }
+  return maxProfit;
+    }
+};
