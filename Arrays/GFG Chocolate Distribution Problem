@@ -1,0 +1,20 @@
+ GFG Chocolate Distribution Problem
+class Solution{
+    public:
+    long long findMinDiff(vector<long long> a, long long n, long long m){
+    //code
+     long long ne=a.size();
+    //sort krdia jis se minimum and sab sort ho jaye for easiness
+    sort(a.begin(),a.end());
+    int min=INT_MAX; //min ko initialize krdia
+  //loop iterate kr rhe hai and subsets ke according aage bdega like i se i+m-1 ye subset hoga and compare and it should be less than n
+    for(int i=0;i+m-1<ne;i++)
+    {   //forward and the ith element m difference
+      int diff=a[i+m-1]-a[i];
+       //putting the value
+      if(diff<min)
+      min=diff;
+    }
+    return min;
+    }   
+};
