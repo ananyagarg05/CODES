@@ -1,0 +1,18 @@
+442. Find All Duplicates in an Array
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+     //sorting jis se saare duplicates aage peeche ho jaye and easy to capture them
+        sort(nums.begin(),nums.end());
+  //storing in a diff vector,so that nums size will not change repeatedly
+       vector<int> results;
+       for (int i=0;i<nums.size()-1;i++)
+       {  //taking nums.size-1 because of i,i+1 i+1 will be at the end element so same hee baat ho gyi wrna out of bound ho jata i
+        if(nums[i]==nums[i+1])
+        {   //duplicates found and pushing them
+            results.push_back(nums[i]);
+        }
+       }
+       return results;
+    }
+};
