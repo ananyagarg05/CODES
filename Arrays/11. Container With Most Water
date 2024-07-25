@@ -1,0 +1,25 @@
+11. Container With Most Water
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int left=0;
+        int right=height.size()-1;
+        int area=0;
+        while(left<right)
+        {
+            int width=right-left;
+            int current_height=min(height[left],height[right]);
+            int area2=width*current_height;
+            area=max(area,area2);
+            if(height[left]<height[right])
+            {
+                left++;
+            }
+            else
+            {
+                right--;
+            }
+        }
+        return area;
+    }
+};
