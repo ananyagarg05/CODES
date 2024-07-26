@@ -1,0 +1,47 @@
+974. Subarray Sums Divisible by K
+class Solution {
+public:
+ //microsoft,paytm,amazon q
+    int subarraysDivByK(vector<int>& nums, int k) {
+        //O(n) approach
+        int n=nums.size();
+        //using map to store
+       unordered_map<int,int> mp;
+       //initial
+       int sum=0;
+       mp[0]=1;
+       int result=0;
+       for(int i=0;i<n;i++)
+       {
+           sum+=nums[i];
+           int rem=sum%k;
+           if(rem<0)
+           {
+            rem+=k;
+           }
+           if(mp.find(rem)!=mp.end())
+           {
+            result+=mp[rem];
+           }
+           mp[rem]++;
+       }
+       return result;
+      }
+};
+//another approach but tle O(n^2)
+        /*int count=0;
+         //O(n^2) approach ,TLE aagya
+      for(int i=1;i<n;i++)
+      {  //cummulative sum
+        nums[i]+=nums[i-1];
+      }
+     for(int i=0;i<n;i++)
+     {
+        for(int j=i;j<n;j++)
+        {
+             int sum=(i==0)?nums[j]:nums[j]-nums[i-1];
+             if(sum%k==0)
+             count++;
+        }
+     }
+     return count;*/
