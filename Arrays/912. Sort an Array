@@ -1,0 +1,32 @@
+912. Sort an Array
+class Solution {
+public:
+//microsoft,goldman sachhs,cisco
+//counting sort
+//range pta honi chahhiye
+//tc is O(n+k)
+//merge sort will be better for nlogn,but we should this too
+    vector<int> sortArray(vector<int>& nums) {
+   unordered_map<int,int> mp;
+   for(int &num:nums)
+   {  //freq store kr rhe hai
+    mp[num]++;
+   }
+  //using stl for min and max
+     int mini=*min_element(begin(nums),end(nums));
+     int maxi=*max_element(begin(nums),end(nums));
+     //min se start krke to max
+     int i=0;
+     for(int num=mini;num<=maxi;num++)
+     {   //present hai agr
+         while(mp[num]>0)
+         {  //faaldo
+            nums[i]=num;
+            i++;
+            //ek baar likh dia ,freq hta do uski
+            mp[num]--;
+         }
+     }
+     return nums;
+    }
+};
