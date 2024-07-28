@@ -1,0 +1,30 @@
+2. Add Two Numbers
+class Solution {
+public:
+ ListNode* iterative( ListNode* l1, ListNode* l2)
+ {   //new list will be stored here
+     ListNode* ans= new  ListNode(-1);
+     //iterate krega
+      ListNode* it=ans;
+      int carry=0;
+      while(l1||l2||carry) //jab tk ye teeno not null hai
+      {     int a =l1?l1->val:0; //l1 non null hai wrna val lelo nhi toh 0 lo
+             int b =l2?l2->val:0;
+             int sum=a+b+carry;
+             int digit=sum%10;
+             carry=sum/10;
+              //nayi node it ke next pr 
+             it->next=new ListNode(digit);
+             it=it->next;
+             //checking and moving forward
+             l1=l1?l1->next:nullptr;
+              l2=l2?l2->next:nullptr;
+      }
+      ListNode* finalAns= ans->next; //final ans ans->next -1 se aage wali
+      delete ans; //-1 wali node
+      return finalAns;
+ }
+    ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+         return iterative(l1,l2);
+    }
+};
