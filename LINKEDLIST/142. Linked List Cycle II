@@ -1,0 +1,43 @@
+142. Linked List Cycle II
+Given the head of a linked list, return the node where the cycle begins. If there is no cycle, return null.
+class Solution {
+public:
+  ListNode* hascycle(ListNode* head)
+  {
+           ListNode* slow=head;
+            ListNode* fast=head;
+         while(fast!=NULL)
+        {
+            fast=fast->next;
+            if(fast!=NULL)
+            {
+                fast=fast->next;
+                slow=slow->next;
+                if(fast==slow)   
+                {
+                   //milgyi cycle
+                    return slow;
+                }
+            }
+        } //nhi mili 
+        return NULL;  
+  }
+    ListNode *detectCycle(ListNode *head) {
+     //step 1 :check if loop is there or not
+          ListNode * fast=hascycle(head);
+          if(!fast) return nullptr;
+          //fst is non null means cycle is there
+          //lets find starting point of cycle
+          //slow ko head pr le aaye
+              ListNode * slow=head;
+              //dono ko 1x speed se move F and S
+              //and return where they meet
+              while(slow!=fast)
+              {  
+                slow=slow->next;
+                 fast=fast->next;
+              }
+     // move at the same speed to find the starting point of the cycle
+              return  slow; //startinf point of the loop
+    }
+};
