@@ -1,0 +1,33 @@
+430. Flatten a Multilevel Doubly Linked List
+class Solution {
+public:
+Node* solve(Node* head)
+{
+     if(!head) return nullptr;
+        auto it= head;
+        auto tail=it;
+        while(it)
+        {
+            if(it->child)
+            {       //recursion se kr rhe hai
+                auto childTail=solve(it->child); //tail node return
+                //lost hone se bchana hai toh
+              auto temp=it->next;
+                //flatten,atachment ka kaam
+                it->next=it->child; //ab connect krdia
+                it->next->prev=it;
+                childTail->next=temp; 
+                if(temp)
+              { temp->prev=childTail; } //jod rhe hai 
+              it->child=nullptr;
+            }
+            tail=it;
+            it=it->next;
+        }
+         return tail;
+}
+    Node* flatten(Node* head) {
+       solve(head);
+       return head;
+    }
+};
