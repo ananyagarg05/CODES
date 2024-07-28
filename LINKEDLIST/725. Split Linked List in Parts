@@ -1,0 +1,32 @@
+725. Split Linked List in Parts
+class Solution {
+public:
+//Time Complexity O(N)
+    vector<ListNode*> splitListToParts(ListNode* head, int k) {
+         int N=0;
+          auto it=head;
+          while(it)
+          {
+            N++;
+            it=it->next;
+          }
+            //determine size of each part /bucket
+            int partSize=N/k;
+            int extraNodes=N%k; // divide bucket by bucket
+            vector<ListNode*>ans(k,nullptr); //kparts divide hongi.
+            it=head;
+            for(int i=0;i<k && it;i++)
+            {
+                ans[i]=it;//check
+                int currPartSize=partSize+(extraNodes-->0?1:0);
+               //node addition
+                for(int j=0;j<currPartSize-1;j++)
+                   { it=it->next; }
+
+                auto nextPartStarting=it->next;
+                 it->next=nullptr;
+                    it=nextPartStarting;
+                   }
+             return ans;
+             }
+};
