@@ -1,0 +1,24 @@
+560. Subarray Sum Equals K
+class Solution {
+public:
+//tc O(n2) with the nested loop method
+//can be better when done with hash maps 
+    int subarraySum(vector<int>& nums, int k) {
+       int n = nums.size();
+    vector<int> prefixSum(n + 1, 0);
+    int count = 0;
+    for (int i = 0; i < n; ++i) {
+        prefixSum[i + 1] = prefixSum[i] + nums[i];
+    }
+     // Check for subarrays with sum equal to k
+    for (int i = 0; i < n; ++i) {
+        for (int j = i; j < n; ++j) {
+            if (prefixSum[j + 1] - prefixSum[i] == k) {
+                count++;
+            }
+        }
+    }
+
+    return count;
+    }
+};
