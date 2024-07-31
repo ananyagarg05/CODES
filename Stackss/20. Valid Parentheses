@@ -1,0 +1,56 @@
+20. Valid Parentheses
+//very imp imp imp ques
+//asked many times in coding rounds
+//very imp and asked and repeated many times(airtel and many more)
+class Solution {
+public:
+    bool isValid(string s) {
+      stack<char> st; //char type lena hai
+      //traversing over the string
+      for(int i=0;i<s.length();i++)
+      {
+         char ch=s[i];
+         //ch open /close bracket
+         //open-> sirf push krta hu
+         //close -> isme check krti hu smae type ka open h ya nhi
+         if(ch=='('||ch=='['||ch=='{')
+         {
+            st.push(ch);
+         }
+         else
+         {
+            //mujhe close bracket mila hai
+            //close bracket ke case m 
+            //main stack ke top pr jaungi and check 
+            //ki if mujhe same type ka open b.t mila ya nho
+            if(ch==')'&& !st.empty() && st.top()=='(')
+            {    //bracket match kr gye
+                  //cancel out honge 
+                  st.pop();
+            }
+            else if(ch=='}' && !st.empty() && st.top()=='{')
+            { //bracket match kr gye
+            st.pop();
+                     
+            }
+            else if(ch==']'&& !st.empty() && st.top()=='[')
+            { //bracket match kr gye
+                   st.pop();
+            }
+            else
+            { //bracket not match 
+                return false;
+            }
+         }
+      }
+      //check stack ka size is here
+      if(st.size()==0)
+      {
+        return true;
+      }
+      else
+      {
+        return false;
+      }
+    }
+};
