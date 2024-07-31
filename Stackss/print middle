@@ -1,0 +1,26 @@
+void printMiddle(stack<int>& s,int count)
+{   //bc
+    if(count==0)
+    {  cout<<s.top()<<endl;
+        return;
+    }
+    //1 case solve krna hai
+    int topEle=s.top();
+    s.pop();
+    count--;
+//baaki rec
+printMiddle(s,count);
+//backtrack
+s.push(topEle);
+}
+int main(){
+    s.push(10);
+     s.push(20);
+      s.push(30);
+       s.push(40);
+        s.push(50);
+         s.push(60);
+    int count=s.size()/2;
+    printMiddle(s,count);
+return 0;
+}
