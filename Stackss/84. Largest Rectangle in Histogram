@@ -1,0 +1,87 @@
+84. Largest Rectangle in Histogram
+//imp imp imp ques
+//repeated many times 
+//smjho aur karo ,imp very much asked in many comp.
+class Solution {
+public:
+// the time complexity is O(n)
+//space complexity of the solution is O(n)
+//A histogram is represented as an array of heights, where each bar's width is 1
+void nextSmallerEle(vector<int>& heights,vector<int>& nextAns)
+{
+    stack<int> st;
+    st.push(-1);
+    int n=heights.size();
+    for(int i=n-1;i>=0;i--)
+    {
+        int ele=heights[i];
+        //= ka sign aayega corner case hai bhool jate haoi st.top()>= 
+        while(st.top()!=-1 && heights[st.top()]>=ele)
+        {
+            st.pop();
+        }
+       //agr yaha tk pohche hai ,iska mtlb
+       //k ya toh koi chota no: stack ke top pr hai
+       //ya fir -1 stack top pr hai
+       nextAns.push_back(st.top());
+       //current no: ko stack m push krna hee hai
+       //index push ho rha hai isliye i 
+       st.push(i);
+    }
+}
+    void prevSmallerEle(vector<int>& heights,vector<int>& prevAns)
+{
+    stack<int> st;
+    st.push(-1);
+    int n=heights.size();
+    for(int i=0;i<n;i++)
+    {
+        int ele=heights[i];
+        while(st.top()!=-1 && heights[st.top()]>=ele)
+        {
+            st.pop();
+        }
+       //agr yaha tk pohche hai ,iska mtlb
+       //k ya toh koi chota no: stack ke top pr hai
+       //ya afir -1 stack top pr hai
+       prevAns.push_back(st.top());
+       //current no: ko stack m push krna hee hai
+       st.push(i);
+    }
+    }
+
+    int largestRectangleArea(vector<int>& heights) {
+        vector<int> nextAns;
+        vector<int> prevAns;
+        nextSmallerEle(heights,nextAns);
+        //next ka ans ulta aata hai kyunki right to left 
+        //isiliye reverse krao to print in the perfect order
+        reverse(nextAns.begin(),nextAns.end());
+        //imp hai ,yahi hum bhool jaate hai extra layer imp -1 kijagah size aayega
+        for(int i=0;i<nextAns.size();i++)
+        {
+            if(nextAns[i]==-1)
+            {   //replacement
+                nextAns[i]=nextAns.size();
+            }
+        }
+        for(auto i:nextAns)
+        {
+            cout<<i<<" ";
+        }
+        prevSmallerEle(heights,prevAns);
+        for(auto j:prevAns)
+        {
+            cout<<j<<" ";
+        }
+          int maxArea=INT_MIN;
+        for(int i=0;i<nextAns.size();i++)
+        {
+            int width=nextAns[i]-prevAns[i]-1;
+            int height=heights[i];
+            int currArea=width*height;
+           maxArea=max(maxArea,currArea);
+        }
+      return maxArea;
+    }
+};
