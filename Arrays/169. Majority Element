@@ -1,0 +1,19 @@
+169. Majority Element
+class Solution {
+public:
+//This approach has a time complexity of  𝑂(n) and space complexity of O(n) sc because of map
+ int majorityElement(vector<int>& nums) {
+       unordered_map<int,int> counts;
+       int n=nums.size();
+       for(int num:nums)
+       {
+        counts[num]++;
+        if(counts[num]>n/2)
+         {
+            return num;
+         }
+       }
+       return -1;
+    }
+};
+//for space comp O(1) use "Boyer–Moore majority vote algorithm" (candidate)
