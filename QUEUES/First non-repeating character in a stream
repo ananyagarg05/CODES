@@ -1,0 +1,61 @@
+First non-repeating character in a stream
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution {
+	public:
+		string FirstNonRepeating(string A){
+	  unordered_map<char,int> freq;
+	  string ans="";
+	  queue<int> q;
+	  for(int i=0;i<A.length();i++)
+	  {
+	      char ch=A[i];
+	      freq[ch]++;
+	      q.push(ch); //initial insert toh rkna hai hee
+	      while(!q.empty())
+	      {
+	          char frontele=q.front();
+	          //check whethere frontele is ans or not
+	          if(freq[frontele]==1)
+	          {
+	              //mtlb ans hai 
+	              //toh store karo
+	              ans.push_back(frontele);
+	              break;
+	          }
+	          else
+	          {
+	              //duplicate hao
+	            q.pop(); 
+	          }
+	      }
+	      //imp cndition'
+	      //agr sab duplicate ele the,toh q empty hogi
+	      //ager koi bhi uniq ele hai ,toh q empty nhi hogi
+	      if(q.empty())
+	      {
+	          ans.push_back('#');
+	      }
+	      
+	  }
+	  return ans;
+		}
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		string A;
+		cin >> A;
+		Solution obj;
+		string ans = obj.FirstNonRepeating(A);
+		cout << ans << "\n";
+	}
+	return 0;
+}
+// } Driver Code Ends
