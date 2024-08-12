@@ -1,0 +1,17 @@
+104. Maximum Depth of Binary Tree
+class Solution {
+public:
+//post order traversal , l, r ,data/height here
+    int maxDepth(TreeNode* root) {
+        //bc
+        if(root==NULL)
+        {
+            return 0;
+        }
+        int leftsubtreeheight=maxDepth(root->left);
+        int rightsubtreeheight=maxDepth(root->right);
+        int maxHeight=max(leftsubtreeheight, rightsubtreeheight);
+        int totalHeight=maxHeight+1;
+        return totalHeight;
+    }
+};
