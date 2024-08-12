@@ -1,0 +1,27 @@
+543. Diameter of Binary Tree
+class Solution {
+public:
+int getHeight(TreeNode* root)
+{
+    if(root==NULL)
+    {
+        return 0;
+    }
+    int left=getHeight(root->left);
+       int right=getHeight(root->right);
+       int maxHeight=max(left,right);
+       int totalHeight=maxHeight+1;
+       return totalHeight;
+}
+    int diameterOfBinaryTree(TreeNode* root) {
+        if(root==NULL)
+        {
+            return 0;
+        }
+        int op1=diameterOfBinaryTree(root->left);
+         int op2=diameterOfBinaryTree(root->right);
+         int op3=getHeight(root->left)+getHeight(root->right);
+         int maxD=max(op1,max(op2,op3));
+         return maxD;
+    }
+};
