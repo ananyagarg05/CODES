@@ -1,0 +1,54 @@
+112. Path Sum
+Given the root of a binary tree and an integer targetSum, 
+return true if the tree has a root-to-leaf path such that adding up all the values
+along the path equals targetSum.
+A leaf is a node with no children.
+class Solution {
+public:
+//Time Complexity O(N)
+ bool solve(TreeNode* root, int target,int sum)
+ {  //empty tree
+    if(root==NULL) return false;
+    //root pkka not null hai
+    //sum mein plus krdo
+    sum=sum+root->val;
+    //leaf node
+    if(root->left==NULL && root->right==NULL)
+    {
+        //root is a leaf node
+        if(sum==target)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    bool leftAns=solve(root->left,target,sum);
+    bool rightAns=solve(root->right,target,sum);
+return leftAns || rightAns; //this did the same thing below block in one line
+/*if(leftAns==false && rightAns==false)
+    {
+         return false;
+    }
+    else if(leftAns==true && rightAns==false)
+    {
+         return true;
+    }
+    else if(leftAns==false && rightAns==true)
+    {
+         return true;
+    }
+    else
+    { //both true
+        return true;
+    }*/
+ }
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        //bc
+      int sum=0;
+      bool ans=solve(root,targetSum,sum);
+      return ans;
+    }
+};
