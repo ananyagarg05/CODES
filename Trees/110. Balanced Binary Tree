@@ -1,0 +1,47 @@
+110. Balanced Binary Tree
+//A height-balanced binary tree is a binary tree in which the depth of the two subtrees 
+//of every node never differs by more than one.
+class Solution {
+public:
+//done with preorder
+//tc is O(n2)
+ int getHeight(TreeNode* root)
+ {    if(root==NULL)
+        {
+            return 0;
+        }
+        int lh=getHeight(root->left);
+        int rh=getHeight(root->right);
+        int ansHeight=max(lh,rh)+1;
+        return ansHeight;
+ }
+    bool isBalanced(TreeNode* root) {
+        if(root==NULL)
+        {
+            return true;
+        }
+        //current node pr check lga rhe hai
+        //ek case solve kr rhe hai
+        int lh=getHeight(root->left);
+        int rh=getHeight(root->right);
+        int absDiff=abs(lh-rh);
+        bool status= (absDiff<=1);
+        //baaki recursion krega
+        bool leftAns=isBalanced(root->left);
+         bool RAns=isBalanced(root->right);
+
+         //I can say whether the tree is balanced or not when 
+         //the current node is balanced and 
+         //left subtree is balanced
+         //right subtree is balanced
+         if(status && leftAns && RAns)
+         {
+            return true;
+         }
+         else
+         {
+            return false;
+         }
+
+    }
+};
