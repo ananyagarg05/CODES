@@ -1,0 +1,59 @@
+105. Construct Binary Tree from Preorder and Inorder Traversal
+class Solution {
+public:
+// tc O(n2)
+//can get optimised by map
+
+/*void createMapping(unordered_map<int,int> &valueToIndex,vector<int> inorder)
+{
+   for(int i=0;i<inorder.size();i++)
+    {  
+//}*/
+  int  getIndexInorder(vector<int>& inorder,int target)
+  { 
+       for(int i=0;i<inorder.size();i++)
+    {  
+          if(inorder[i]==target)
+          {
+            return i;
+          }
+    }   
+        return -1;
+  }
+ TreeNode* constructTree(vector<int>& preorder,vector<int>& inorder,
+ int& preIndex,int inorderStart, int inorderEnd, int size)
+ {  //base case
+    if(preIndex>=size)
+    { //ruk jaana hai end se aage
+        return NULL;
+    }
+    if(inorderStart>inorderEnd)
+    {
+        return NULL;
+    }
+    //process the first ele of preorder as root
+    //step 1 , get ele from preorder and create root node
+     int element=preorder[preIndex];
+     preIndex++; //aage karo index ko
+     //node
+     TreeNode* root= new TreeNode(element);
+     //step 2 : find this ele inside inorder and call for left and right
+     int eleinInOrder=getIndexInorder(inorder,element);
+     //inorder left part ,tohe ele ka index
+     //kya hoga , inorderstart se leke  eleinInOrder-1
+     //inorder right part-> index eleinInOrder+1 to inorderENd
+     root->left=constructTree(preorder,inorder,preIndex,inorderStart,eleinInOrder-1,size);
+     root->right=constructTree(preorder,inorder,preIndex,eleinInOrder+1,inorderEnd,size);
+
+       return root;
+ }
+    TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder)
+     {
+         int preIndex=0;
+         int inorderStart=0;
+         int inorderEnd=inorder.size()-1;
+         int size=inorder.size();
+         TreeNode* root=constructTree(preorder,inorder,preIndex,inorderStart,inorderEnd,size);
+         return root;
+    }
+};
