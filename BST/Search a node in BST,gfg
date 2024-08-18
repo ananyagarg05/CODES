@@ -1,0 +1,34 @@
+Search a node in BST,gfg
+bool search(Node* root, int x) {
+    if(root==NULL)
+    {
+        return false;
+    }
+    if(root->data==x)
+    {
+        return true;
+    }
+    else
+    {
+        //data!=x
+        //decide left ya right
+        if(x<root->data)
+        {
+            //left
+            bool leftAns=search(root->left,x);
+            if(leftAns==true)
+            {
+                return true;
+            }
+        }
+        else
+        {
+            bool rightAns=search(root->right,x);
+            if(rightAns==true)
+            {
+                return true;
+            }
+        }
+    }
+    return false;
+}
