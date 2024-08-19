@@ -1,0 +1,87 @@
+235. Lowest Common Ancestor of a Binary Search Tree
+//can be done same as 236 with 4 cases ,and with a tc of O(n)
+//can also be done with better tc with O(h)->height of the tree
+
+//here done with better approach with O(h)
+TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+     if(root==NULL)
+     {
+        return NULL;
+     }
+     //here also 4 cases , but less time taking with O(h)->height of tree
+     //tc of O(h)->O(log n)
+    
+     //case A 
+     //p and q are both on left side
+     //right->neglect and left->select
+     if(p->val<root->val && q->val<root->val)
+     {
+        //left m hai
+        TreeNode* leftAns= lowestCommonAncestor(root->left,p,q);
+        if(leftAns!=NULL)
+        {
+            return leftAns;
+        }
+     }
+
+     //case B 
+     //p and q are both in right side
+    if(p->val>root->val && q->val>root->val)
+     {
+        //left m hai
+        TreeNode* rightAns= lowestCommonAncestor(root->right,p,q);
+        if(rightAns!=NULL)
+        {
+            return rightAns;
+        }
+     }
+     //case C
+     //p in left st and q in right st
+     //case d
+
+     //q is lst and p in rst
+     return root; //of c and d cases
+}};
+
+//approach 2 with O(n) ,ques no: 236 done with this
+
+class Solution {
+public:
+////time complexity O(n)
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+          //base condition
+       if(root==NULL)
+       {
+        return NULL;
+       } 
+       if(root->val==p->val)
+       {
+             return p;
+       }
+        if(root->val==q->val)
+       {
+             return q;
+       }
+
+       TreeNode* leftAns= lowestCommonAncestor(root->left,p,q);
+       TreeNode* rightAns= lowestCommonAncestor(root->right,p,q);
+       if(leftAns==NULL && rightAns==NULL)
+       {
+        return NULL;
+       }
+       else if(leftAns!=NULL && rightAns==NULL)
+       {
+        return leftAns;
+       }
+       else if(leftAns==NULL && rightAns!=NULL)
+       {
+        return rightAns;
+       }
+       else
+       {
+        //leftAns!=NULL && rightAns!=NULL
+        //return node krdenge root wali
+        return root;
+       }
+    }
+};
