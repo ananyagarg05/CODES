@@ -1,0 +1,44 @@
+653. Two Sum IV - Input is a BST
+class Solution {
+public:
+//Time Complexity O(N)
+void storeInorder(TreeNode* root,vector<int>& inorder)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    //LNR
+    storeInorder(root->left,inorder);
+    inorder.push_back(root->val);
+    storeInorder(root->right,inorder);
+}
+bool CheckTwoSum(vector<int> arr,int target)
+{
+    int n=arr.size();
+    int s=0;
+    int e=n-1;
+    while(s<e)
+    {
+        int sum=arr[s]+arr[e];
+        if(sum==target)
+        {
+            return true;
+        }
+        if(sum>target)
+        {
+            e--;
+        }
+        if(sum<target)
+         {   s++;
+        }
+    }
+    return false;
+}
+    bool findTarget(TreeNode* root, int k) {
+        vector<int> inorder;
+        storeInorder(root,inorder);
+        bool ans=CheckTwoSum(inorder,k);
+        return ans;
+    }
+};
