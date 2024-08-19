@@ -1,0 +1,49 @@
+230. Kth Smallest Element in a BST
+
+//Approach 1 : through Inorder, easy peasy done 
+class Solution {
+public:
+/*void storeInorder(TreeNode* root,vector<int>& inorder)
+{
+    if(root==NULL)
+    {
+        return;
+    }
+    //LNR
+    storeInorder(root->left,inorder);
+    inorder.push_back(root->val);
+    storeInorder(root->right,inorder);
+}*/
+    int kthSmallest(TreeNode* root, int k) {
+       /* vector<int> inorder;
+        storeInorder(root,inorder);
+         return inorder[k-1];*/
+         
+    }
+};
+//Approach 2:recursive way
+ void solve(TreeNode *root, int k, int& count,TreeNode* &ans)
+ { //time complexity of Approach 2: O(n)
+    if(root==NULL)
+    {
+        return ;
+    }
+        //LNR
+        solve(root->left,k,count, ans);
+        //N is the current node
+        count++;
+        if(count==k)
+        {
+            ans=root;
+        }
+        //R
+        solve(root->right,k,count,ans);
+ }
+ int kthSmallest(TreeNode* root, int k) {
+   //Approach 2: Recursive way
+        int count=0;
+        TreeNode* ans=NULL;
+        solve(root,k,count,ans);
+        return ans->val;
+    }
+};
