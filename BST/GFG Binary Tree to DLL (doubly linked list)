@@ -1,0 +1,36 @@
+//Binary Tree to DLL
+//GFG
+//Company Tags
+//Morgan Stanley Accolite Amazon Microsoft Snapdeal Goldman Sachs Salesforce
+
+//code starts here
+class Solution {
+  public:
+  void solve(Node*root,Node*& head)
+  {    if(root==NULL)
+      {
+          return;
+      }
+      //RNL
+      //R
+      solve(root->right,head);
+      //assume kr skte hai right part ki LL bngyi hogi
+      //and head right part ki ll k start node pr hoga
+      root->right=head;
+      if(head!=NULL)
+      {
+          head->left=root;
+      }
+      //yaha tk aapki N and RN ki LL bn chuki hai
+      //head update krna hai
+      head=root;
+      //ab tree ka left part pending hai
+      solve(root->left,head);
+      
+  }
+    Node* bToDLL(Node* root) {
+     Node* head=NULL;
+     solve(root,head);
+     return head;
+    }
+};
