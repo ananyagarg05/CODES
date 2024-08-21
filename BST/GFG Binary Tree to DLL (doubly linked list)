@@ -6,6 +6,7 @@
 //code starts here
 class Solution {
   public:
+//approach 1 :inorder reverse krdia RNL
   void solve(Node*root,Node*& head)
   {    if(root==NULL)
       {
@@ -34,3 +35,37 @@ class Solution {
      return head;
     }
 };
+
+//another approach by using inorder only without reversing , through tail
+
+  void solve(Node*root,Node*& head, Node*& tail)
+  {
+       if(root==NULL)
+      {
+          return;
+      }
+      //LNR 
+       solve(root->left,head,tail);
+       //head and tail update and root node ko connect to left ll
+       if(tail!=NULL)
+       {
+           tail->right=root;
+           root->left=tail;
+           tail=root; //updated
+       }
+       else
+       {  head=root;
+       tail=root; 
+       //agr tail hee null thi toh
+       }
+       //
+       solve(root->right,head,tail);
+     }
+    Node* bToDLL(Node* root) {
+     Node* head=NULL;
+     Node* tail=NULL;
+     solve(root,head,tail);
+     return head;
+    }
+};
+
