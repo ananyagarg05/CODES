@@ -1,0 +1,72 @@
+1373. Maximum Sum BST in Binary Tree
+
+//time complexity -> O(n)
+class info
+{  public:
+
+    int minval;
+    int maxval;
+    int sum;
+    bool isBST;
+};
+class Solution {
+public:
+   int minCalc(int a,int b,int c)
+   {
+    int minAns= min(a,min(b,c));
+    return minAns;
+   }
+   int maxCalc(int a,int b,int c)
+   {
+    int maxAns= max(a,max(b,c));
+    return maxAns;
+   }
+   info solve(TreeNode* root,int& sum)
+   {
+    //base case
+    if(root==NULL)
+    {
+        info temp;
+        temp.minval=INT_MAX;
+        temp.maxval=INT_MIN;
+        temp.sum=0;
+        temp.isBST=true;
+     sum=max(sum,temp.sum);
+        return temp;
+    }
+    //leaf node
+    if(root->left==NULL && root->right==NULL)
+    {
+        info temp;
+        temp.minval=root->val;
+        temp.maxval=root->val;
+        temp.sum=root->val;
+        temp.isBST=true;
+        sum=max(sum,temp.sum);
+        return temp;
+    }
+    //LRN
+    info leftAns=solve(root->left,sum);
+   info rightAns=solve(root->right,sum);
+
+     //N
+     info currentAns;
+     currentAns.minval=minCalc(leftAns.minval,rightAns.minval,root->val);
+      currentAns.maxval=maxCalc(leftAns.maxval,rightAns.maxval,root->val);
+     currentAns.sum=leftAns.sum+rightAns.sum+root->val;
+     currentAns.isBST=(root->val>leftAns.maxval && root->val<rightAns.minval && leftAns.isBST && rightAns.isBST);
+     if(currentAns.isBST)
+     {
+        sum=max(sum,currentAns.sum);
+     }
+     return currentAns;
+   }
+
+    int maxSumBST(TreeNode* root) {
+        //check for BST-> checkforBST-> >,<,lst,rst
+        //MaxSum,max,min
+         int sum=0;
+         info temp=solve(root,sum);
+            return sum;
+    }
+};
