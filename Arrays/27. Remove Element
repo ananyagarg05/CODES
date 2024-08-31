@@ -1,0 +1,23 @@
+27. Remove Element
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+          int k = 0; // This will track the count of elements not equal to val
+    // Traverse through the array
+    for (int i = 0; i < nums.size(); i++) {
+    // If the current element is not equal to val
+        if (nums[i] != val) {
+           // Assign this element to the k-th position in the array
+            nums[k] = nums[i];
+            //starting m valid values daal rhe hai 
+            // Increment the count of valid elements
+            k++; //k aage bdh rha hai,and ending tk non valid value tak jayega
+        }
+    }
+    // After the loop, k will be the count of elements not equal to val
+    //yaha pr k non valid value pr hai
+    //we have to return the number of valid elements
+    //toh woh k ki value hogi upto kaha tk from 0 to k tk 
+    return k;
+    }
+};
