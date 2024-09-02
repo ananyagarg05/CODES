@@ -1,0 +1,26 @@
+215. Kth Largest Element in an Array
+class Solution {
+public:
+//time complexity= O(N*log(k))
+    int findKthLargest(vector<int>& nums, int k) {
+        //min heap
+        priority_queue<int,vector<int>,greater<int>> pq;
+        for(int i=0;i<k;i++)
+        {
+            pq.push(nums[i]);
+        }
+        //process remaining elements ko
+        //humchahte hai ,k end m heap mein ho 
+        for(int i=k;i<nums.size();i++)
+        {
+            int element=nums[i];
+            if(element>pq.top())
+            {
+                pq.pop();
+                pq.push(element);
+            }
+        }
+        int ans=pq.top();
+        return ans;
+    }
+};
