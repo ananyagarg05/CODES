@@ -1,0 +1,85 @@
+GFG Is Binary Tree Heap
+class Solution {
+  public:
+  bool checkCompleteness(Node* root)
+ {
+    //level order use krenge
+    queue<Node*> q;
+    //initial state
+    q.push(root);
+    bool nullfound=false; //flag
+    //kabtk chalyenge q ko
+    while(!q.empty())
+    {
+    Node* front=q.front();
+    q.pop();
+    
+    if(front==NULL)
+    {
+        nullfound=true;
+    }
+    else
+    {  //front ek valid node hai
+        if(nullfound==true)
+        {
+            //not a cbt
+            return false;
+        }
+        else
+        { //maybe a cbt,continue processing
+            q.push(front->left);
+            q.push(front->right);
+        }
+    }
+    }
+    return true;
+ }
+
+
+ bool checkMax(Node* root)
+ {
+    if(root==NULL)
+    {
+        return true;
+    }
+    if(root->left==NULL && root->right==NULL)
+    {
+        return true;
+    }
+    bool leftans=checkMax(root->left);
+     bool rightans=checkMax(root->right);
+     bool option1=true;
+     if(root->left && root->data<root->left->data)
+     {
+         option1=false;
+     }
+     bool option2=true;
+      if(root->right && root->data<root->right->data)
+     {
+         option2=false;
+     }
+     bool currAns=option1 && option2;
+    if(currAns && leftans && rightans)
+    {
+        return true;
+    }
+    else
+    return false;
+    
+ }
+
+
+    bool isHeap(struct Node* tree) {
+           bool completeness=checkCompleteness(tree);
+           bool maxProp=checkMax(tree);
+           if(completeness && maxProp)
+           {
+               return true;
+           }
+           else
+           {
+               return false;
+           }
+             
+    }
+};
