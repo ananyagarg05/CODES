@@ -1,0 +1,41 @@
+958. Check Completeness of a Binary Tree
+class Solution {
+public:
+ bool solve(TreeNode* root)
+ {
+    //level order use krenge
+    queue<TreeNode*> q;
+    //initial state
+    q.push(root);
+    bool nullfound=false; //flag
+    //kabtk chalyenge q ko
+    while(!q.empty())
+    {
+    TreeNode* front=q.front();
+    q.pop();
+    
+    if(front==NULL)
+    {
+        nullfound=true;
+    }
+    else
+    {  //front ek valid node hai
+        if(nullfound==true)
+        {
+            //not a cbt
+            return false;
+        }
+        else
+        { //maybe a cbt,continue processing
+            q.push(front->left);
+            q.push(front->right);
+        }
+    }
+    }
+    return true;
+ }
+    bool isCompleteTree(TreeNode* root) {
+        bool ans=solve(root);
+        return ans;
+    }
+};
