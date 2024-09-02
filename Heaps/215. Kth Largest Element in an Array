@@ -24,3 +24,20 @@ public:
         return ans;
     }
 };
+//another way
+ priority_queue<int> pq;
+for(int i=0;i<nums.size();i++)
+{
+int val=nums[i];
+pq.push(val);
+}
+int ans=-1;
+while(k!=0)
+{
+ans=pq.top();
+pq.pop();
+k--;
+}
+return ans;
+}
+};
