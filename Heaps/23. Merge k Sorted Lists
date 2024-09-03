@@ -1,0 +1,63 @@
+23. Merge k Sorted Lists
+
+//Time Complexity -> O(N∗Log(K))
+class  compare
+{
+    public:
+    bool operator()(ListNode* a, ListNode* b)
+    {
+        return a->val > b->val;
+    }
+};
+
+class Solution {
+public:
+
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue< ListNode*, vector<ListNode*>, compare> pq;
+        ListNode* head=NULL;
+         ListNode* tail=NULL;
+    //process first k elements
+    //harr list ka pehla element pq mein karna hai
+       int totalRows= lists.size();
+       for(int row=0;row<totalRows;row++)
+        {   ListNode* temp=lists[row];
+            if(temp!=NULL)
+            {
+                //if it is a valid node
+                pq.push(temp);
+            }
+        }
+        //main logic
+         while(!pq.empty())
+         { //front nikalo
+             ListNode* front=pq.top();
+             pq.pop();
+
+             //ans m insert karo
+             if(head==NULL && tail==NULL)
+             {
+                //it means im inserting first node in LL
+                head=front;
+                tail=front;
+               
+                 }
+             else
+             {
+                //means not inserting the first node
+                //it is not the first node
+                //insert at end hoga mtlb
+                tail->next=front;
+                tail=front;
+
+             }
+              //agar aage node hai toh pq m insert karo
+              if(tail->next!=NULL)
+                {
+                    //insert karo
+                    pq.push(tail->next);
+                }
+         }  
+         return  head;
+    }
+};
