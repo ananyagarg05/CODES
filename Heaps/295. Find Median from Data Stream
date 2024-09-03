@@ -1,0 +1,69 @@
+295. Find Median from Data Stream
+
+class MedianFinder {
+public:
+    priority_queue<int> maxHeap;
+    priority_queue<int,vector<int>,greater<int>> minHeap;
+    double median;
+
+    MedianFinder() 
+    {
+       median=0;
+    }
+    
+    void addNum(int num) {
+        if(maxHeap.size()==minHeap.size())
+        {
+            if(num > median)
+            {
+                // insert in right
+                minHeap.push(num);
+                // update
+                median = minHeap.top();
+            }
+            else
+            {
+                // insert in left
+                maxHeap.push(num);
+                // update
+                median = maxHeap.top();
+            }
+        }
+        else if(maxHeap.size() == minHeap.size() + 1)
+        {
+            if(num > median)
+            {
+                // insert in right
+                minHeap.push(num);
+            }
+            else
+            {
+                // insert in left
+                int element = maxHeap.top();
+                maxHeap.pop();
+                minHeap.push(element);
+                maxHeap.push(num);
+            }
+            median = (minHeap.top() + maxHeap.top()) / 2.0;
+        }
+        else if(maxHeap.size() + 1 == minHeap.size())
+        {
+            if(num > median)
+            {
+                int element = minHeap.top();
+                minHeap.pop();
+                maxHeap.push(element);
+                minHeap.push(num);
+            }
+            else
+            {
+                maxHeap.push(num);
+            }
+            median = (minHeap.top() + maxHeap.top()) / 2.0;
+        }
+    }
+    
+    double findMedian() {
+        return median;
+    }
+};
