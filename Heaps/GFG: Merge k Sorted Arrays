@@ -1,0 +1,65 @@
+GFG: Merge k Sorted Arrays
+
+class Info
+{  
+    public:
+    int data;
+    int rindex;
+    int cindex;
+    Info(int x, int y, int z)
+    {
+         data=x;
+         rindex=y;
+         cindex=z;
+    }
+ };
+
+ class compare
+ {
+     public:
+     bool operator()(Info* a , Info* b)
+     {
+         return a->data > b->data;
+     }
+ };
+
+
+class Solution
+{
+    public:
+    //Function to merge k sorted arrays.
+    vector<int> mergeKArrays(vector<vector<int>> arr, int K)
+    {
+        priority_queue<Info*, vector<Info*>, compare> pq;
+        //process first k elements
+        //harr array ka first element
+         vector<int> ans;
+        int totalRows=arr.size();
+        int totalColumns=arr[0].size();
+        for(int row=0;row<arr.size();row++)
+        {
+            int element=arr[row][0];
+            Info* temp= new Info(element,row,0);
+            pq.push(temp);
+        }
+        //main logic
+
+        while(!pq.empty())
+        {
+            Info* front=pq.top();
+            pq.pop();
+            int frontdata=front->data;
+            int front_rIndex=front->rindex;
+            int front_cindex=front->cindex;
+            ans.push_back(frontdata);
+            //check if data aage hai frontelement k
+         if(front_cindex+1<totalColumns)
+            {
+            int element=arr[front_rIndex][front_cindex+1];
+         Info* temp=new Info(element,front_rIndex,front_cindex+1);
+                pq.push(temp);
+            }
+        }
+        return ans;
+    }
+};
