@@ -1,0 +1,19 @@
+/*Map data structure (also known as a dictionary , associative array , or hash map ) is defined as a data structure that stores a collection of key-value pairs, where each key is associated with a single value.
+Maps provide an efficient way to store and retrieve data based on a unique identifier (the key). */
+
+/* A hashmap is a data structure that pairs keys to values.
+It uses a hash function to calculate an index into an array of buckets, from which the desired value can be found.
+Simply put, it's like a real-world dictionary where you know the 'word' (key), and you quickly find its meaning' (value). */
+
+Ordered Map:
+An ordered map maintains the order in which key-value pairs are inserted. This means that iterating over the map will return the pairs in the order they were added.
+
+Unordered Map:
+An unordered map does not maintain the order of key-value pairs. The order in which elements are returned during iteration is not guaranteed and may vary across different implementations or executions.
+
+Feature	              Ordered Map	                        Unordered Map
+Order           	Maintains insertion order           	    No order
+Implementation	 Self-balancing tree, skip list	           Hash table
+Access by key      O(log n)	                              O(1) average
+Iteration          	O(n)	                                 O(n)
+Use cases   	    Order matters, LRU cache            	Fast access, dictionaries
