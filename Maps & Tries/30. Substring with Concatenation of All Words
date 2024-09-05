@@ -1,0 +1,76 @@
+30. Substring with Concatenation of All Words
+//imp ques,nice,good,important
+//tc O(n),where n is the length of the string s.
+//sc Space Complexity=O(m+n)
+//Where:
+//m is the number of words in the words list.
+//n is the length of the string s.
+
+class Solution {
+public:
+         //step 1 :create a map to track
+         //indv word ka count
+        unordered_map<string,int> map;
+    vector<int> findSubstring(string s, vector<string>& words) {
+        vector<int> ans;
+        for(int i=0;i<words.size();i++)
+        {  //count ++ krdo
+            map[words[i]]++;
+        }
+        int wordLength=words[0].length();
+        //offset logic->start->0,1,2 <wordlength
+        for(int offset=0;offset<wordLength;offset++)
+        {   //2nd map
+            //track the visited word
+            unordered_map<string,int> visited;
+            //ans mila kya check krne k liye we need to
+            //track count
+            int count=0; //abhi koi ni hai word include 
+            //isliye 0 mark kia hai initially
+
+          //ab main word length ke substring dekho and check it 
+        for(int i=offset;i+wordLength<=s.length();i=i+wordLength)
+        {
+                string substr=s.substr(i,wordLength);
+                //check we this substring is valid or not
+                if(map.find(substr)==map.end())
+                {
+                    //invalid string hai
+                    //then purane saare answer ko bhoolo
+                    //and naya start krna chahiye 
+                    //invalid string pr aaye toh khali krna pdega yaha
+                    visited.clear();
+                    count=0;
+                   // continue;//skip krdo 
+                    //hai hee nhi kuch
+                }
+                else
+                {  //valid string hai 
+                    //visited mark karo pehle 
+                    visited[substr]++;
+                    count++;
+
+                    //imp thing now
+                    //GAME CHANGER
+                    //removal
+                    //compare krenge map ki values,freq
+             while(visited[substr]>map[substr])
+              { //harr word removal pr viisted and count dono m se hatega
+                    //woh word hatega
+                string temp=s.substr(i-(count-1)*wordLength,wordLength);
+                visited[temp]--;
+                count--;
+              }
+                     //ans mila kya
+                if(count==words.size())
+                {
+                    //ans milgya
+                    //mujhe starting index return ans m insert krna hai
+                    ans.push_back(i-(count-1)*wordLength);
+                   }
+                }
+           }
+        }
+                      return ans;
+    }
+};
