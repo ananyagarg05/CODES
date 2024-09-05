@@ -1,0 +1,28 @@
+1.Two Sum through Maps
+//leetcode 1.
+class Solution {
+public:
+//tc O(n)
+    vector<int> twoSum(vector<int>& nums, int target) {
+        unordered_map<int,int>map;
+        //main logic
+        for(int i=0;i<nums.size();i++)
+        {
+            int currE=nums[i];
+            int valueTofind=target-currE;
+            if(map.find(valueTofind)!=map.end())
+            {
+                //milgyi value
+                //return ans
+           return {i,map[valueTofind]};
+             //kyunki ans milgya hai
+             //ab main loop se bahar chla jaunga
+            }
+            else
+            {
+                map[currE]=i;
+            }
+        }
+        return{-1,-1};
+    }
+};
