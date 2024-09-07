@@ -1,0 +1,21 @@
+TRIES
+The Trie data structure is a tree-like data structure used for storing a dynamic set of strings. 
+It is commonly used for efficient retrieval and storage of keys in a large dataset. 
+It is commonly used for implementing dictionaries and autocomplete features.
+The structure supports operations such as insertion, search, and deletion of keys, making it a valuable tool in fields like computer science and information retrieval. In this article we are going to explore insertion and search operation in Trie Data Structure.
+
+Representation of Trie Node:
+Every Trie node consists of a character pointer array or hashmap and a flag to represent if the word is ending at that node or not. But if the words contain only lower-case letters (i.e. a-z), then we can define Trie Node with an array instead of a hashmap.
+
+Representation of of Trie Node:
+A Trie data structure consists of nodes connected by edges. 
+Each node represents a character or a part of a string. 
+The root node, the starting point of the Trie, represents an empty string. Each edge emanating from a node signifies a specific character. The path from the root to a node represents the prefix of a string stored in the Trie.
+
+Advantages of Trie Data Structure over a Hash Table:
+The A trie data structure has the following advantages over a hash table:  
+We can efficiently do prefix search (or auto-complete) with Trie.
+We can easily print all words in alphabetical order which is not easily possible with hashing.
+There is no overhead of Hash functions in a Trie data structure.
+Searching for a String even in the large collection of strings in a Trie data structure can be done in O(L) Time complexity, Where L is the number of words in the query string. 
+This searching time could be even less than O(L) if the query string does not exist in the trie.
