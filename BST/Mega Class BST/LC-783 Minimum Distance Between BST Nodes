@@ -1,0 +1,24 @@
+LC-783
+Minimum Distance Between BST Nodes
+class Solution {
+public:
+void solve( TreeNode* root,int &ans, TreeNode* &prev)
+{ //inorder
+ if(!root) return;
+ solve(root->left,ans,prev);
+ //kuch kuch krna hai
+ if(prev)
+ {
+    ans=min(ans,root->val-prev->val);
+ }
+     prev=root;
+    solve(root->right,ans,prev);
+
+}
+    int minDiffInBST(TreeNode* root) {
+        TreeNode* prev= nullptr;
+        int ans=INT_MAX; //min diff
+        solve(root,ans,prev);
+        return ans;
+    }
+};
