@@ -1,0 +1,28 @@
+98. Validate Binary Search Tree
+
+//Time Complexity O(N)
+class Solution {
+public:
+bool validate(TreeNode* root, long long lb, long long ub)
+{
+    if(!root) return true;
+    bool currRange=root->val>lb && root->val<ub;
+    bool leftBST= true;
+    bool rightBST=true;
+    if(currRange)
+    {
+      leftBST=validate(root->left,lb,root->val);
+     rightBST=validate(root->right,root->val,ub);
+    }
+     return currRange && leftBST && rightBST;
+}
+    bool isValidBST(TreeNode* root) {
+        long long lowerB= LONG_MIN , upperB=LONG_MAX;
+        return validate(root,lowerB,upperB);
+    }
+};
+
+Time and Space Complexity:
+Time Complexity: O(n), where n is the number of nodes, because each node is visited once.
+Space Complexity: O(h), where h is the height of the tree, due to the recursive call stack
+(same as in the in-order traversal solution).
