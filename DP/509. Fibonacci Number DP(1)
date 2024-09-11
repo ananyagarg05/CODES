@@ -1,5 +1,6 @@
 509. Fibonacci Number DP(1)
-
+Done using normal Rec, then rec+memoisation
+//*******************************************************************
 //Time Complexity O(2 raised to N)
 //through Recursion first
 class Solution {
@@ -21,5 +22,39 @@ public:
     int fib(int n) {
         int ans=solveusingRec(n);
         return ans;
+    }
+};
+
+// *************************************************************************
+//through Rec+Memoisation
+//top-down approach
+
+ int solveUsingMem(int n,vector<int>& dp)
+ {  //base case
+     if(n==0)
+    {
+        return 0;
+    }
+    if(n==1)
+    {
+        return 1;
+    }
+    //step 3: base case ke baad,if ans is already existed or not
+    if(dp[n]!= -1)
+    {
+        return dp[n];
+    }
+    //step2: dp array mein ans store karo and return karo
+    dp[n]=solveUsingMem(n-1,dp)+solveUsingMem(n-2,dp);
+    return dp[n];
+ }
+    int fib(int n) {
+        // int ans=solveusingRec(n);
+        //return ans;
+
+//step 1: create which dp it is and create and pass in function
+        vector<int> dp(n+1,-1);
+         return solveUsingMem(n,dp);
+      
     }
 };
