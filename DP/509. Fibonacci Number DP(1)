@@ -1,0 +1,25 @@
+509. Fibonacci Number DP(1)
+
+//Time Complexity O(2 raised to N)
+//through Recursion first
+class Solution {
+public:
+
+ int solveusingRec(int n)
+ {
+    if(n==0)
+    {
+        return 0;
+    }
+    if(n==1)
+    {
+        return 1;
+    }
+    int ans=solveusingRec(n-1)+solveusingRec(n-2);
+    return ans;
+ }
+    int fib(int n) {
+        int ans=solveusingRec(n);
+        return ans;
+    }
+};
