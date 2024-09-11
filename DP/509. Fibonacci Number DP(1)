@@ -63,3 +63,42 @@ public:
       
     }
 };
+
+//*********************************************************************
+//Bottom Up Approach
+
+ int solveusingTabulation(int n)
+ { //step 1: create dp array
+    vector<int> dp(n+2,-1);
+    //step 2: analyse base cases and update dp array
+    //2 hee base case the and update
+    dp[0]=0;
+    //if(n==0) return 0; ya toh ye ,yatoh n+2 krdo n+1 ko
+    dp[1]=1;
+    //step 3: check parameter and reverse it and run a loop
+    //rec->n->0 ki taraf so
+    //reverse 0->n
+    //0,1 ka answer pta hai
+    //isliye 2 se start kia hai
+
+    for(int i=2;i<=n;i++)
+    {
+      //now copy paste
+      //and n ki jagah i se 
+      //loop m i use ho rha hai
+       dp[i]=dp[i-1]+dp[i-2];
+    }
+    //answer return
+    //ans milega rec m kya pass kia tha
+    return dp[n];
+ }
+    int fib(int n) {
+        // int ans=solveusingRec(n);
+        //return ans;
+
+//step 1: create which dp it is and create and pass in function
+       // vector<int> dp(n+1,-1);
+         //return solveUsingMem(n,dp);
+         return solveusingTabulation(n);
+    }
+};
