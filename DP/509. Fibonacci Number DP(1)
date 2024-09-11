@@ -102,3 +102,49 @@ public:
          return solveusingTabulation(n);
     }
 };
+
+//******************************************************************************
+//space optimisation method
+//without dp array
+//time comp O(n)
+//space comp -> constant space 
+//therefore the best
+//best space and least that is constant
+
+
+ int solveusingTabulationOptimised(int n)
+ { //step 1: create dp array
+  //arrya chahiye hee nhi optimised app m
+    //vector<int> dp(n+2,-1);
+    //step 2: analyse base cases and update dp array
+    //2 hee base case the and update
+    // dp[0]=0;
+    //if(n==0) return 0; ya toh ye ,yatoh n+2 krdo n+1 ko
+   // dp[1]=1;
+
+    //array chahiye hee nhi optimised app m
+    //base case
+    if(n==0)
+    {
+        return 0;
+    }
+    if(n==1)
+    {
+        return 1;
+    }
+int prev=0;
+int curr=1;
+    for(int i=2;i<=n;i++)
+    {
+      int ans=curr+prev;
+      prev=curr;
+      curr=ans;
+    }
+    //answer return
+    //ans milega rec m kya pass kia tha
+    return curr;
+ }
+    int fib(int n) {
+      return solveusingTabulationOptimised(n);
+    }
+};
