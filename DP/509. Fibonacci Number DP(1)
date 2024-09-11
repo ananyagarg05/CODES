@@ -40,6 +40,11 @@ public:
         return 1;
     }
     //step 3: base case ke baad,if ans is already existed or not
+    //ans change hua hai mtlb
+    //ans store hua hai
+    //return that ans
+    //to reduce the time and everything
+
     if(dp[n]!= -1)
     {
         return dp[n];
