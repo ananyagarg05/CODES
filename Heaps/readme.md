@@ -14,6 +14,8 @@ Min Heap: The root node contains the minimum value, and the values increase as y
 Heaps have various applications, like:
 
 Heaps are commonly used to implement priority queues, where elements are retrieved based on their priority (maximum or minimum value).
+
 Heapsort is a sorting algorithm that uses a heap to sort an array in ascending or descending order.
+
 Heaps are used in graph algorithms like Dijkstra’s algorithm and Prim’s algorithm for finding the shortest paths and minimum spanning trees.
 
