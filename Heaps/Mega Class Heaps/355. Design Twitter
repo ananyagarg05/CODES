@@ -8,6 +8,21 @@ Heap operations like insertion and extraction will only operate on 10 elements, 
 Max-Heap, while also correct, would require storing all tweets, and you would need to pop the top 10 elements, which could be less efficient, especially if there are a large number of tweets from users and followees. Each heap operation in the max-heap is 
 O(logn), where 𝑛 , n is the total number of tweets, which can be much larger than 10.
 
+In this problem, an unordered set is typically used to keep track of the users that someone follows. This is important because the system needs to:
+
+Allow a user to follow multiple people.
+Allow a user to unfollow specific people.
+Quickly check if one user is following another.
+
+Since the problem only cares about whether a user follows another (and not how many times they follow someone), an unordered set is an ideal data structure. It provides average O(1) time complexity for insertions, deletions, and lookups.
+
+Use unordered_set when you only care about unique elements (e.g., tracking the people a user follows without duplicates.
+
+Maps vs sets
+
+unordered_set: Used to track the unique set of people a user follows.
+unordered_map: Used to map keys to values, like users to tweets.
+
 class Twitter {
     struct Tweet
     {   int tweetId;
