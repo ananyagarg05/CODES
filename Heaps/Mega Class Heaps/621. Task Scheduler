@@ -1,0 +1,55 @@
+621. Task Scheduler
+
+     class Solution {
+     public:
+         int leastInterval(vector<char>& tasks, int n) {
+             //First, count the frequency of each task using an unordered_map.
+             //This step helps us understand how many times each task needs to be scheduled.
+             unordered_map<char,int> freq;
+             for(auto task:tasks)
+             {
+                 freq[task]++;
+             }
+             //Use a priority queue (max-heap) to store tasks based on their frequency.
+             // This allows us to always process the most frequent task first.
+          priority_queue<pair<int,char>,vector<pair<int,char>>> maxHeap;
+             for(auto e:freq)
+             {
+                 maxHeap.push({e.second,e.first});
+             }
+             int time=0;
+             while(!maxHeap.empty())
+             { //Initialize cycle as n + 1. This represents the maximum interval length needed to schedule tasks considering the cooling period.
+             //  In each cycle, process up to n + 1 tasks. For each task processed, reduce its frequency by 1.
+                 int cycle=n+1;
+      //Store tasks with remaining frequency in temp and push them back into the heap after processing the current cycle.
+                 vector<pair<int,char>> temp;    
+                 while(cycle>0 && !maxHeap.empty())
+                 {
+                     auto[freq,task]=maxHeap.top();
+                     maxHeap.pop();
+                     freq--;
+                     time++;
+                     cycle--;
+                     //push reamining tasks
+                     temp.push_back({freq,task});
+                 }
+                 for(auto leftTask:temp)
+                 {
+                     if(leftTask.first>0)
+                     {
+                         maxHeap.push(leftTask);
+                     }
+                 }
+                     //adding idle time
+              //If there are still tasks left in the heap after processing the current cycle,
+              // we need to add idle time to account for the remaining slots in the cycle that could not be filled by tasks.
+                     if(!maxHeap.empty())
+                     {
+                         time+=cycle;
+                     }
+               }
+         //The variable time holds the total number of intervals needed to complete all tasks while calc. to the cooling period constraint.
+              return time;
+         }
+     };
