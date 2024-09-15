@@ -1,5 +1,13 @@
 355. Design Twitter
 
+Min-Heap is preferred in this case because:
+You only need to store the 10 most recent tweets, so the heap’s size is always limited to 10. This makes the min-heap space-efficient, since it doesn’t need to store all tweets.
+
+Heap operations like insertion and extraction will only operate on 10 elements, making them extremely fast (O(log10)=O(1)).
+
+Max-Heap, while also correct, would require storing all tweets, and you would need to pop the top 10 elements, which could be less efficient, especially if there are a large number of tweets from users and followees. Each heap operation in the max-heap is 
+O(logn), where 𝑛 , n is the total number of tweets, which can be much larger than 10.
+
 class Twitter {
     struct Tweet
     {   int tweetId;
