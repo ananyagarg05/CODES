@@ -1,0 +1,90 @@
+355. Design Twitter
+
+class Twitter {
+    struct Tweet
+    {   int tweetId;
+        int time;
+     Tweet(int id , int t) : tweetId(id),time(t) {};
+    };
+     //global clock
+       int time;
+    //maps
+    //1. map-> userId to TWEETS, userId to the tweets that the user has posted
+    unordered_map<int,vector<Tweet>> tweets;
+    //2.map -> follow unfllow
+    //map-> uderID to vector userid, userid to his followings
+      unordered_map<int, unordered_set<int>> following;
+
+      class comp
+      {
+         public:
+      bool operator()(const Tweet&a,const Tweet&b)
+       {
+              return a.time>b.time;
+       }
+      };
+public:
+    Twitter() {
+        time=0;
+    }
+    
+    void postTweet(int userId, int tweetId) {
+        tweets[userId].push_back(Tweet(tweetId,time++));
+    }
+    //returning the TweetsIds of 10 most recent tweets done by me or my followers
+    vector<int> getNewsFeed(int userId) {
+         // Min-heap to store the most recent 10 tweets. 
+       priority_queue<Tweet,vector<Tweet>,comp> minHeap;
+     //add user's tweets
+     if(tweets.find(userId)!=tweets.end())
+     {
+        for(auto tweet:tweets[userId])
+      {
+             minHeap.push(tweet);
+             if(minHeap.size()>10)
+             minHeap.pop(); //remove the oldest tweet
+      }
+     } 
+  
+     //addd tweets from my followings
+     if(following.find(userId)!=following.end())
+     {
+        auto myFollowings =following[userId];
+        for(auto followeeId:myFollowings)
+        {
+             if(tweets.find(followeeId)!=tweets.end())
+     {
+        for(auto tweet:tweets[followeeId])
+      {
+             minHeap.push(tweet);
+             if(minHeap.size()>10)
+             minHeap.pop(); //remove the oldest tweet
+         }
+       } 
+    }
+ }
+     //now return 
+     //now i will have top 10 most recent
+     //reverse krna padega min heap use ho rha hai isliye
+     vector<int> newsFeedTweets;
+     while(!minHeap.empty())
+     {
+        auto[tweetId,time]=minHeap.top();
+              minHeap.pop();
+        newsFeedTweets.push_back(tweetId);
+     }
+      reverse(newsFeedTweets.begin(),newsFeedTweets.end());
+         return newsFeedTweets;
+    }
+    
+    void follow(int followerId, int followeeId) {
+        if(followerId==followeeId)
+        return ; // i cant follow myself
+      following[followerId].insert(followeeId);
+    }
+    
+    void unfollow(int followerId, int followeeId) {
+        if(following.find(followerId)!= following.end())
+        following[followerId].erase(followeeId);
+    }
+};
