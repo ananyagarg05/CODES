@@ -1,0 +1,38 @@
+347. Top K Frequent Elements
+
+//Time Complexity -> O(N∗Log(K))
+
+class Solution {
+public:
+
+  vector<int> topKFrequent(vector<int>& nums, int k) {
+        //the freq. of each element
+
+        unordered_map<int,int> freqMap;//key:element , value:frequency
+        for(auto num:nums)
+        freqMap[num]++;
+        //pair lenge,sort krna hai freq ke base pr
+        //freq and ele store krne hai 
+        //pair<int,int> -> shows ,1. freq ,and 2. number
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> minHeap;
+        //iterate over the freq.map and maintain heap of sizes K
+        for(auto entry:freqMap)
+        {
+            minHeap.push({entry.second,entry.first});//heap has pairs now
+            if(minHeap.size()>k) //imp hai ye line
+            minHeap.pop();//removing the least freq. element
+        }
+        //at this point 
+        //my minHeap has top K frequent elements
+        vector<int> ans;
+        while(!minHeap.empty())
+        { // auto[freq,num]=minHeap.top(); //ajavascript inspired
+        //pop
+        //ans push back krdo num ko //javascript destructure use krke
+            pair<int,int> top=minHeap.top();
+            minHeap.pop();
+            ans.push_back(top.second);
+        }
+        return ans;
+    }
+};
