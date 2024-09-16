@@ -18,7 +18,7 @@ if(i>=nums.size())
  }*/
 
 //using dp,hogya submit
-//top down approach 
+//1.top down approach 
  int solveMem(vector<int>&nums,int i,vector<int>& dp)
  {   if(i>=nums.size())
     {
@@ -34,11 +34,49 @@ if(i>=nums.size())
        return dp[i];
 
  }
-    int rob(vector<int>& nums) {
+
+//bottom up approach
+//tabulation
+/* int solveTabulation(vector<int>&nums)
+   {   int n=nums.size();
+     //step 1 create dp array
+        vector<int> dp(n+2,0);
+       
+      for(int i=n-1;i>=0;i--)
+         {  int include=nums[i]+dp[i+2];
+            int exclude=0+dp[i+1];
+        dp[i]=max(include,exclude);
+         }
+    return dp[0];
+ }*/
+
+
+//3rd. Space optimisation
+int solveOptimised(vector<int>&nums)
+   { //time comp O(n)
+   //space comp O(1) 
+    
+     int n=nums.size();
+      int next1=0;
+      int next2=0;
+       for(int i=n-1;i>=0;i--)
+         {  int include=nums[i]+next2;
+            int exclude=0+next1;
+          int curr=max(include,exclude);
+          //shifting-> bhool jaate hai
+          next2=next1;
+          next1=curr;
+         }
+    return next1;
+ }
+
+int rob(vector<int>& nums) {
        //return solve(nums,0);
        int n=nums.size();
-       vector<int>dp(n+1,-1);//n+10000 bhi karo koi dikkt nhi hai
-       int i=0;
-       return  solveMem(nums,i,dp);  
+      // vector<int>dp(n+1,-1);//n+10000 bhi karo koi dikkt nhi hai
+       //int i=0;
+      // return  solveMem(nums,i,dp);  
+      //return solveTabulation(nums);
+      return solveOptimised(nums);
     }
 };
