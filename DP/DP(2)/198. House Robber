@@ -1,0 +1,44 @@
+198. House Robber
+
+class Solution {
+public:
+//using recursion tle aaya tha
+ /*int solve(vector<int>&nums ,int i)
+ { //base case
+if(i>=nums.size())
+ {
+    return 0;
+ }
+        //ek case main solve ,baaki recursion
+        //include ,exclude pattern
+        int include=nums[i]+solve(nums,i+2);
+        int exclude=0+solve(nums,i+1);
+        int finalAns=max(include,exclude);
+       return finalAns;
+ }*/
+
+//using dp,hogya submit
+//top down approach 
+ int solveMem(vector<int>&nums,int i,vector<int>& dp)
+ {   if(i>=nums.size())
+    {
+        return 0;
+    }
+    if(dp[i]!=-1)
+    {
+        return dp[i];
+    }
+        int include=nums[i]+solveMem(nums,i+2,dp);
+        int exclude=0+solveMem(nums,i+1,dp);
+     dp[i]=max(include,exclude);
+       return dp[i];
+
+ }
+    int rob(vector<int>& nums) {
+       //return solve(nums,0);
+       int n=nums.size();
+       vector<int>dp(n+1,-1);//n+10000 bhi karo koi dikkt nhi hai
+       int i=0;
+       return  solveMem(nums,i,dp);  
+    }
+};
