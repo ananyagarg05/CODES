@@ -1,0 +1,98 @@
+0 - 1 Knapsack Problem
+class Solution {
+  public:
+    int solveRec(vector<int>&val,vector<int>&wt,int cap,int index)
+    {
+        //bc
+        //index out of bound
+        //single item
+        if(index==0)
+        {  if(wt[0]<=cap)
+        {
+            return val[0];
+        }
+        else
+        {
+            return 0;
+        }  }
+        int inc=0;
+        if(wt[index]<=cap)
+        {
+            //include
+            //baaki rec
+            //right se left aa rhe hai
+            //left se right bhi aa skte hai
+            //koi sa bhi lo
+            inc=val[index]+solveRec(val,wt,cap-wt[index],index-1);
+        }
+        int exc=0+solveRec(val,wt,cap,index-1);
+        int finalAns=max(inc,exc);
+        return finalAns;
+    }
+//SOLVE USING MEM
+ int solveMem(vector<int>&val,vector<int>&wt,int cap,int index, vector<vector<int>>& dp)
+    {
+        //bc
+        //index out of bound
+        //single item
+        if(index==0)
+        {  if(wt[0]<=cap)
+        {
+            return val[0];
+        }
+        else
+        {
+            return 0;
+        }  }
+        if( dp[cap][index]!=-1)
+        {
+            return  dp[cap][index];
+        }
+        int inc=0;
+        if(wt[index]<=cap)
+        {
+            //include
+            //baaki rec
+            //right se left aa rhe hai
+            //left se right bhi aa skte hai
+            //koi sa bhi lo
+         inc=val[index]+solveMem(val,wt,cap-wt[index],index-1,dp);
+        }
+        int exc=0+solveRec(val,wt,cap,index-1);
+        //step 2 store ans
+        dp[cap][index]=max(inc,exc);
+        return  dp[cap][index];
+    }
+    int knapSack(int W, vector<int>& wt, vector<int>& val) {
+        // Your code here
+        int cap=W;
+        int n=val.size();
+        int index=n-1;
+        //return solveRec(val,wt,cap,index);
+        vector<vector<int>> dp(cap+1,vector<int>(n,-1));
+      return   solveMem(val,wt,cap,index,dp);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
