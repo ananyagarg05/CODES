@@ -23,3 +23,14 @@ public:
     }
     return ans;
 }
+
+//2d dp i and j m changes hai
+//i rows,j columns
+//dp ke baad bhi tle aaya 
+//top down mein 
+//logic sahi sab sahi,dp bhi use krlia 
+//then?
+//text1 and text2 ki lengths copies bann rhi hai 
+//therefore use & here 
+//&text1 ,&text2
+
