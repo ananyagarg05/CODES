@@ -1,0 +1,22 @@
+9. Palindrome Number
+
+//Time Complexity: O(log₁₀(n)) because we are only processing half the digits of the number
+//Space Complexity: O(1) since we are only using a few variables, with no extra space for arrays or strings.
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        int revHalf=0;
+        //Negative numbers are directly returned as false because they can't be palindromes.
+        //Check for edge cases: Numbers ending with 0 (except 0 itself) are not palindromes.
+        if(x<0 || (x%10==0 && x!=0))
+        {
+            return false;
+        }
+        //Compare the reversed second half with the first half to check if they match.
+        while(x>revHalf)
+        {   revHalf=revHalf*10+x%10;
+            x=x/10;
+        }
+        return x==revHalf || x==revHalf/10;
+    }
+};
