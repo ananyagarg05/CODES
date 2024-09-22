@@ -1,5 +1,3 @@
-187. Repeated DNA Sequences
-
 //Time Complexity O(N)
 class Solution {
 public:
@@ -15,13 +13,23 @@ public:
             seqCount[currentsized]++;
         }
          //repeated chahiye
-         for(auto it:seqCount)
-         {
-            if(it.second>1)
-            {
-                ans.push_back(it.first);
-            }
-         }
+
+         //basic way
+        //  for(auto it:seqCount)
+        //  {
+        //     if(it.second>1)
+        //     {
+        //         ans.push_back(it.first);
+        //     }
+        //  }
+
+        //destructing use krke 
+        //& ref ke liye 
+        //string ki copy na bane isliye & 
+        for(auto & [substr,freq]:seqCount)
+        {
+            if(freq>1) ans.push_back(substr);
+        }
          return ans;
     }
 };
