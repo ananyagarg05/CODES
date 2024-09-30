@@ -1,0 +1,7 @@
+Topological sorting 
+
+Topological sorting for Directed Acyclic Graph (DAG) is a linear ordering of vertices such that for every directed edge u-v, vertex u comes before v in the ordering.
+DAGs are a special type of graphs in which each edge is directed such that no cycle exists in the graph.
+
+Note: 
+Topological Sorting for a graph is not possible if the graph is not a DAG.
