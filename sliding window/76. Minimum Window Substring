@@ -1,0 +1,76 @@
+76. Minimum Window Substring
+class Solution {
+public:
+    string minWindow(string s, string t) {
+     int len1=s.length();
+     int len2=t.length();
+     if(len1<len2)
+     {
+        //no answer
+        return "";
+     }
+     //inn do variables k basis par main exact string find out kr skti hu
+     //substr use krke
+     int ansIndex=-1;
+     int anslen=INT_MAX;
+     //below 2 maps reflect the current windows of the strings
+     unordered_map<char,int> sMap;
+     unordered_map<char,int> tMap;  
+     //values fill krte h tmap k andr
+     for(auto i:t)
+     {
+        tMap[i]++;
+     }
+     int start=0;
+     int end=0;
+     //count tracks total matched chars in the window
+     int count =0;
+     //variable sixe window wala logic run kre hai
+     while(end<s.length())
+     {
+        char ch=s[end];
+        //update karo smap mein
+        //kyuki smap "s" weali string ki window mein 
+        //kon kon se chars hai unko track krne ke liye bnaya hua hai
+        sMap[ch]++;
+        //possibility hai ye chars t ke andr ho ya na ho
+        //agr ye char t wali string m bhi hai,toh isko matched chars ke andr count krna pdega
+        if(sMap[ch]<=tMap[ch])
+        {  //valid hai
+            count++;
+        }
+        //if count i.e total no of matched chars exactly 
+        //len 2 i.e length of string t ke equal aajaye
+        //iska matlb ek aisi window milgyi hai jisme t ke saare chars present hai
+        if(count==len2)
+        {
+            //mujhe ek aise window milgyi hai,jisme answetr present hai
+            //mimimise
+            //start ko aage badhao
+            while(sMap[s[start]]>tMap[s[start]])
+            {   
+                sMap[s[start]]--;
+                start++;
+            }
+            //ans store 
+            int windowLen=end-start+1;
+            if(windowLen<anslen)
+            {
+                anslen=windowLen;
+                ansIndex=start;
+            } }
+          //yaha 
+          //jab ek valid ans nhi milta
+          //tab expand krte hai
+          end++;  
+     }
+     if(ansIndex==-1)
+     {
+        return "";
+     }
+    else
+    {
+        return s.substr(ansIndex,anslen);
+    }
+        }
+};
