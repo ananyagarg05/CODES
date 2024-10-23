@@ -1,0 +1,39 @@
+209. Minimum Size Subarray Sum
+class Solution {
+public:
+    int minSubArrayLen(int target, vector<int>& nums) {
+        int s=0;
+        int e=0;
+        int sum=0;
+        int len=INT_MAX;
+        while(e<nums.size())
+        {
+            sum=sum+nums[e];
+            //ho skta hai 
+            //ye sum < ho , ya fir >=ho
+            while(sum>=target)
+            {
+                //minimize
+                //sabse pehle cheez, aapke paas ek valid ans h toh store it
+                len=min(len,e-s+1); //length total (e-s+1) basic 
+                //minimize  kia
+                //sum decrease hoga jaha bhi start hai uss number se
+                sum=sum-nums[s];
+                s++;
+             }
+             //agr main yaha pohchi 
+             //that means
+             //sum <target ho gya 
+             //toh tab sum<target hota hai ,expand 
+             e++;
+        }
+        if(len==INT_MAX)
+        {
+            return 0;
+        }
+        else
+        {
+            return len;
+        }
+    }
+};
