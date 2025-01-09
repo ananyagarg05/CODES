@@ -1,0 +1,28 @@
+1768. Merge Strings Alternately
+
+class Solution {
+public:
+    string mergeAlternately(string word1, string word2) {
+        //final merged string
+         string finalmerged;
+         //2 pointers to iterate over the 2 strings
+         int i=0, j=0;
+         //condition to iterate
+        while(i<word1.length() && j<word2.length())
+         {  //appending into the final merged string 
+            finalmerged+=word1[i++];
+            finalmerged+=word2[j++];
+         }
+         //if any of the letters are remaining , have to check
+         while(i<word1.length())
+         {
+                finalmerged+=word1[i++];
+         }
+          while(j<word2.length())
+         {
+                finalmerged+=word2[j++];
+         }
+         //finally returning it
+         return finalmerged;
+    }
+};
