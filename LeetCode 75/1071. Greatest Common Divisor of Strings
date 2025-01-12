@@ -1,0 +1,33 @@
+1071. Greatest Common Divisor of Strings
+
+// Time Complexity O(N+M)
+class Solution {
+public:
+     // If concatenating the strings in different orders gives different results,
+        // there is no common divisor string
+    string gcdOfStrings(string str1, string str2) {
+        if(str1+str2!=str2+str1)
+        {
+            return "";
+        }
+        //The semicolon after a lambda function is needed because:
+        // The semicolon (;) after the lambda function definition in C++ is required because the lambda function is an expression, not a standalone function definition. 
+        // The lambda is an expression that is assigned to a variable.
+        // Assignments and expressions in C++ must end with a semicolon.
+        // This is a key difference between lambdas and regular functions in C++.
+        auto gcd=[](int a ,int b)
+        {
+        while(b!=0)
+        {
+            int temp=b;
+            b=a%b;
+            a=temp;
+        }
+        return a;
+        };
+         // Find the GCD of the lengths of the two strings
+        int gcdlength=gcd(str1.length(),str2.length());
+         // Return the substring of the first string from 0 to gcdLength
+        return str1.substr(0,gcdlength);
+    }
+};
