@@ -1,0 +1,20 @@
+1431. Kids With the Greatest Number of Candies
+
+class Solution {
+public:
+    vector<bool> kidsWithCandies(vector<int>& candies, int extraCandies) {
+         // Find the maximum number of candies any kid currently has
+         //* dereference operator
+        int maxCandies = *max_element(candies.begin(), candies.end());
+        
+        // Preallocate the result vector with the same size as candies
+        vector<bool> result(candies.size(), false);
+        
+        // Use a single loop to calculate the result
+        for (int i = 0; i < candies.size(); ++i) {
+            result[i] = (candies[i] + extraCandies >= maxCandies);
+        }
+        
+        return result;
+    }
+};
