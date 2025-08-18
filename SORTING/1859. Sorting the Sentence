@@ -1,0 +1,30 @@
+1859. Sorting the Sentence
+class Solution {
+public:
+    string sortSentence(string s) {
+        vector<string> words(10);  // 0 to 9 , 10 digits hee use ho skte
+        stringstream ss(s); //break krne hai easily , cpp sstream hai
+        string word; //
+
+        // split words
+        while (ss >> word) // its like cin >> taking the word ,ss >> word extracts one word at a   time from the sentence s
+            { 
+            int pos = word.back() - '0';   // last char = position , subract from 0 because ascii  coversion in string  1 -> ascii -> 49    3-> 51  3-0 = 51-48=3 iss position word[3]=word 
+            word.pop_back();              // remove the digit , ab sirf word bachgya baaki nos gayab
+            words[pos] = word; //final word without the digit
+        }
+
+        // build result
+        string ans;
+        for (int i = 1; i < 10; i++) //o to 9
+            { 
+            if (!words[i].empty()) //empty hone nahi chahiye words wali string 
+            { 
+                if (!ans.empty()) 
+                ans = ans + " "; //space between them
+                ans += words[i]; //finally making a sentence at the end 
+            }
+        }
+        return ans; // returning the final string 
+    }
+};
